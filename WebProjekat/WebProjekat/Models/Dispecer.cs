@@ -5,6 +5,7 @@ using System.Web;
 
 namespace WebProjekat.Models
 {
+    [Serializable]
     public class Dispecer : Korisnik
     {
         public Dispecer()
@@ -24,6 +25,7 @@ namespace WebProjekat.Models
             Email = email;
             Uloga = uloga;
             ListaVoznji = new List<Voznja>();
+            Prijavljen = false;
         }
     }
 }

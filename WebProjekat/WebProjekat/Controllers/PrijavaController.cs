@@ -1,0 +1,133 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using WebProjekat.Models;
+
+namespace WebProjekat.Controllers
+{
+    public class PrijavaController : Controller
+    {
+        // GET: Prijava
+        public ActionResult Index()
+        {
+            Korisnik korisnik = (Korisnik)Session["korisnik"];
+
+            if(korisnik == null)
+            {
+                korisnik = new Korisnik();
+                Session["korisnik"] = korisnik;
+                return View("Prijava");
+            }
+            else
+            {
+                foreach(Musterija m in Korisnici.ListaMusterija)
+                {
+                    if(m.KorisnickoIme == korisnik.KorisnickoIme && m.Lozinka != korisnik.Lozinka)
+                    {
+                        return View("PrijavaNeuspesna");
+                    }
+                    else if(m.KorisnickoIme == korisnik.KorisnickoIme && m.Lozinka == korisnik.Lozinka)
+                    {
+                        m.Prijavljen = true;
+                        return View("PrikazMusterije", m);
+                    }
+                }
+
+                return View("KorisnikNePostoji");
+            }
+        }
+
+        public ActionResult Registracija()
+        {
+            return View("Registracija");
+        }
+
+        [HttpPost]
+        public ActionResult Registracija(string ime, string prezime, string pol, string korisnickoIme, string lozinka, string jmbg, string brojTelefona, string email)
+        {
+            if (ime == "" || prezime == "" || korisnickoIme == "" || lozinka == "" || jmbg == "" || brojTelefona == "" || email == "")
+            {
+                return View("RegistracijaPonovo");
+            }
+
+            Pol p = Pol.MUSKI;
+            if(pol == "MUSKI")
+            {
+                p = Pol.MUSKI;
+            }
+            else
+            {
+                p = Pol.ZENSKI;
+            }
+
+            Musterija musterija = new Musterija(korisnickoIme, lozinka, ime, prezime, p, jmbg, brojTelefona, email, Uloga.MUSTERIJA);
+
+            if(Korisnici.ListaMusterija != null)
+            {
+                foreach(Korisnik k in Korisnici.ListaMusterija)
+                {
+                    if(k.KorisnickoIme == musterija.KorisnickoIme)
+                    {
+                        return View("RegistracijaNeuspesna");
+                    }
+                }
+            }
+
+            Korisnici.ListaKorisnika.Add(musterija);
+            Korisnici.ListaMusterija.Add(musterija as Musterija);
+
+            return View("Prijava");
+        }
+
+        [HttpPost]
+        public ActionResult LogIn(string korisnickoIme, string lozinka)
+        {
+            foreach(Musterija m in Korisnici.ListaMusterija)
+            {
+                if(m.KorisnickoIme == korisnickoIme && m.Lozinka != lozinka)
+                {
+                    return View("PrijavaNeuspesna");
+                }
+                else if(m.KorisnickoIme == korisnickoIme && m.Lozinka == lozinka)
+                {
+                    m.Prijavljen = true;
+                    Session["korisnik"] = m;
+                    return View("PrikazMusterije");
+                }
+            }
+
+            foreach (Vozac v in Korisnici.ListaVozaca)
+            {
+                if (v.KorisnickoIme == korisnickoIme && v.Lozinka != lozinka)
+                {
+                    return View("PrijavaNeuspesna");
+                }
+                else if (v.KorisnickoIme == korisnickoIme && v.Lozinka == lozinka)
+                {
+                    v.Prijavljen = true;
+                    Session["korisnik"] = v;
+                    return View("PrikazVozaca");
+                }
+            }
+
+            foreach (Dispecer d in Korisnici.ListaDispecera)
+            {
+                if (d.KorisnickoIme == korisnickoIme && d.Lozinka != lozinka)
+                {
+                    return View("PrijavaNeuspesna");
+                }
+                else if (d.KorisnickoIme == korisnickoIme && d.Lozinka == lozinka)
+                {
+                    d.Prijavljen = true;
+                    Session["korisnik"] = d;
+                    return View("PrikazDispecera");
+                }
+            }
+
+            return View("KorisnikNePostoji");
+        }
+    }
+
+}

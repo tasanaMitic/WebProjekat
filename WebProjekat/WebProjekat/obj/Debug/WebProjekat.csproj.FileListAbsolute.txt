@@ -89,3 +89,7 @@ C:\Users\Korisnik\Desktop\WebProjekat\WebProjekat\WebProjekat\obj\Debug\WebProje
 C:\Users\Korisnik\Desktop\WebProjekat\WebProjekat\WebProjekat\obj\Debug\WebProjekat.csproj.CopyComplete
 C:\Users\Korisnik\Desktop\WebProjekat\WebProjekat\WebProjekat\obj\Debug\WebProjekat.dll
 C:\Users\Korisnik\Desktop\WebProjekat\WebProjekat\WebProjekat\obj\Debug\WebProjekat.pdb
+C:\Users\Korisnik\Desktop\WebProjekat\WebProjekat\WebProjekat\bin\System.Web.Http.WebHost.dll
+C:\Users\Korisnik\Desktop\WebProjekat\WebProjekat\WebProjekat\bin\System.Net.Http.Formatting.xml
+C:\Users\Korisnik\Desktop\WebProjekat\WebProjekat\WebProjekat\bin\System.Web.Http.xml
+C:\Users\Korisnik\Desktop\WebProjekat\WebProjekat\WebProjekat\bin\System.Web.Http.WebHost.xml

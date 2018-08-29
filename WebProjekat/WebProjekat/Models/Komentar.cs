@@ -19,7 +19,7 @@ namespace WebProjekat.Models
 
         }
 
-        public Komentar(string opis, DateTime datumObjave, Korisnik korisnik, Voznja voznja, Ocena ocena)
+        public Komentar(string opis, DateTime datumObjave, Voznja voznja, Ocena ocena, Korisnik korisnik)
         {
             Opis = opis;
             DatumObjave = datumObjave;

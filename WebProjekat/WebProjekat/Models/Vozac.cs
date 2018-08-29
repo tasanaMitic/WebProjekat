@@ -5,6 +5,7 @@ using System.Web;
 
 namespace WebProjekat.Models
 {
+    [Serializable]
     public class Vozac : Korisnik
     {
         public Automobil Automobil { get; set; }
@@ -32,7 +33,7 @@ namespace WebProjekat.Models
             Jmbg = jmbg;
             KontaktTelefon = kontaktTelefon;
             Email = email;
-            Uloga = uloga;
+            //Uloga = uloga;
             ListaVoznji = new List<Voznja>();
 
             Adresa adresa = new Adresa();
