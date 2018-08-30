@@ -5,7 +5,56 @@
 }
 
 <html>
-    <body>
+<body>
+    <table style="background-color:aliceblue" border="1">
+        <tr>
+            <td>Korisničko ime:</td>
+            <td><label>@Model.KorisnickoIme</label></td>
+        </tr>
+        <tr>
+            <td>Ime:</td>
+            <td><label>@Model.Ime</label></td>
+        </tr>
+        <tr>
+            <td>Prezime:</td>
+            <td><label>@Model.Prezime</label></td>
+        </tr>
+        <tr>
+            <td>Jmbg:</td>
+            <td><label>@Model.Jmbg</label></td>
+        </tr>
+        <tr>
+            <td>Pol:</td>
+            <td><label>@Model.Pol</label></td>
+        </tr>
+        <tr>
+            <td>E-mail:</td>
+            <td><label>@Model.Email</label></td>
+        </tr>
+        <tr>
+            <td>Kontakt telefon:</td>
+            <td><label>@Model.KontaktTelefon</label></td>
+        </tr>
+    </table>
 
-    </body>
+    <table>
+        <tr>
+            <td>
+                <form action="/Musterija/Izmena">
+                    <input type="submit" value="Izmeni profil" />
+                </form>
+            </td>
+            <td>
+                <form action="/Musterija/Voznja">
+                    <input type="submit" value="Nadji voznju" />
+                </form>
+            </td>
+            <td>
+                <form action="/Musterija/Odjava">
+                    <input type="submit" value="Odjavi se" />
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
 </html>

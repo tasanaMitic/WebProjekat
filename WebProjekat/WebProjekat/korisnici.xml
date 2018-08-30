@@ -1,46 +1,14 @@
-﻿<Ulogovani>
-	<Korisnik>
-		<Ime>Luka</Ime>
-		<Prezime>Bosanac</Prezime>
-		<Jmbg>31090913934309</Jmbg>
-		<KorisnickoIme>boske</KorisnickoIme>
-		<Lozinka>vukovar</Lozinka>
-		<Pol>Muski</Pol>
-		<E-Mail>boske@live.com</E-Mail>
-		<BrojTelefona>065343938</BrojTelefona>
-		<Uloga>Dispecer</Uloga>
-	</Korisnik>
-	<Korisnik>
-		<Ime>Bogdan</Ime>
-		<Prezime>Kovacev</Prezime>
-		<Jmbg>394934893</Jmbg>
-		<KorisnickoIme>bosa</KorisnickoIme>
-		<Lozinka>karavukovo</Lozinka>
-		<Pol>Muski</Pol>
-		<E-Mail>bogi@gmail.com</E-Mail>
-		<BrojTelefona>064293892</BrojTelefona>
-		<Uloga>Dispecer</Uloga>
-	</Korisnik>
-	<Korisnik>
-		<Ime>Aleksandar</Ime>
-		<Prezime>Jancikin</Prezime>
-		<Jmbg>389328233</Jmbg>
-		<KorisnickoIme>janpi</KorisnickoIme>
-		<Lozinka>vinjak</Lozinka>
-		<Pol>Muski</Pol>
-		<E-Mail>api@hotmail.com</E-Mail>
-		<BrojTelefona>064323929</BrojTelefona>
-		<Uloga>Dispecer</Uloga>
-	</Korisnik>
+﻿<Prijavljeni>
 	<Korisnik>
 		<Ime>Tasana</Ime>
 		<Prezime>Mitic</Prezime>
-		<Jmbg>0504995</Jmbg>
-		<KorisnickoIme>tasana</KorisnickoIme>
-		<Lozinka>blabla</Lozinka>
-		<Pol>Muski</Pol>
-		<E-Mail>tasana@gmail.com</E-Mail>
-		<BrojTelefona>0638354648</BrojTelefona>
-		<Uloga>Musterija</Uloga>
+		<Jmbg>05049958851845</Jmbg>
+		<KorisnickoIme>taske</KorisnickoIme>
+		<Lozinka>juki</Lozinka>
+		<Pol>ZENSKI</Pol>
+		<E-Mail>taske@gmail.com</E-Mail>
+		<KontaktTelefon>0638357972</KontaktTelefon>
+		<Uloga>DISPECER</Uloga>
+		<Voznje />
 	</Korisnik>
-</Ulogovani>
+</Prijavljeni>

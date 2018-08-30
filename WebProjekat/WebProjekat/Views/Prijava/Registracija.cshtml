@@ -8,7 +8,7 @@
 <html>
     <body>
         <form method="post" action="/Prijava/Registracija">
-            <table border="1" style="background-color:lightskyblue">
+            <table border="1" style="background-color:aliceblue">
                 <tr>
                     <td colspan="2" align="center">UNESITE PODATKE:</td>
                 </tr>
@@ -37,15 +37,15 @@
                     </td>
                     <td>
                         <select name="pol">
-                            <option value="MUSKI">Muski</option>
-                            <option value="ZENSKI">Zenski</option>
+                            <option value="MUSKI">Muški</option>
+                            <option value="ZENSKI">Ženski</option>
                         </select>
                     </td>
                 </tr>
 
                 <tr>
                     <td>
-                        Korisnicko ime:
+                        Korisničko ime:
                     </td>
                     <td>
                         <input type="text" name="korisnickoIme" />
@@ -72,7 +72,7 @@
 
                 <tr>
                     <td>
-                        Broj telefona:
+                        Kontakt telefon:
                     </td>
                     <td>
                         <input type="text" name="brojTelefona" />
@@ -87,14 +87,10 @@
                         <input type="text" name="email" />
                     </td>
                 </tr>
-
-                <tr>
-                    <td>
-                        <input type="submit" value="Registruj se" />
-                    </td>
-                </tr>
-
             </table>
+            <div style="text-align:left">
+                <input type="submit" value="Registruj se" />
+            </div>
         </form>
     </body>
 </html>

@@ -22,7 +22,21 @@ namespace WebProjekat.Controllers
             }
             else
             {
-                foreach(Musterija m in Korisnici.ListaMusterija)
+                foreach (Dispecer d in Korisnici.ListaDispecera)
+                {
+                    if (d.KorisnickoIme == korisnik.KorisnickoIme && d.Lozinka != korisnik.Lozinka)
+                    {
+                        return View("PrijavaNeuspesna");
+                    }
+                    else if (d.KorisnickoIme == korisnik.KorisnickoIme && d.Lozinka == korisnik.Lozinka)
+                    {
+                        d.Prijavljen = true;
+                        return View("PrikazDispecera", d);
+                    }
+                }
+
+
+                foreach (Musterija m in Korisnici.ListaMusterija)
                 {
                     if(m.KorisnickoIme == korisnik.KorisnickoIme && m.Lozinka != korisnik.Lozinka)
                     {
@@ -32,6 +46,19 @@ namespace WebProjekat.Controllers
                     {
                         m.Prijavljen = true;
                         return View("PrikazMusterije", m);
+                    }
+                }                
+
+                foreach (Vozac v in Korisnici.ListaVozaca)
+                {
+                    if (v.KorisnickoIme == korisnik.KorisnickoIme && v.Lozinka != korisnik.Lozinka)
+                    {
+                        return View("PrijavaNeuspesna");
+                    }
+                    else if (v.KorisnickoIme == korisnik.KorisnickoIme && v.Lozinka == korisnik.Lozinka)
+                    {
+                        v.Prijavljen = true;
+                        return View("PrikazVozaca", v);
                     }
                 }
 
@@ -94,7 +121,7 @@ namespace WebProjekat.Controllers
                 {
                     m.Prijavljen = true;
                     Session["korisnik"] = m;
-                    return View("PrikazMusterije");
+                    return View("PrikazMusterije", m);
                 }
             }
 
@@ -108,7 +135,7 @@ namespace WebProjekat.Controllers
                 {
                     v.Prijavljen = true;
                     Session["korisnik"] = v;
-                    return View("PrikazVozaca");
+                    return View("PrikazVozaca", v);
                 }
             }
 
@@ -122,7 +149,7 @@ namespace WebProjekat.Controllers
                 {
                     d.Prijavljen = true;
                     Session["korisnik"] = d;
-                    return View("PrikazDispecera");
+                    return View("PrikazDispecera", d);
                 }
             }
 

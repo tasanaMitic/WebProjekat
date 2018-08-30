@@ -1,3 +1,1 @@
-boske:vukovar:Luka:Bosanac:Muski:31090913934309:065343938:boske@live.com:Dispecer
-bosa:karavukovo:Bogdan:Kovacev:Muski:394934893:064293892:bogi@gmail.com:Dispecer
-janpi:vinjak:Aleksandar:Jancikin:Muski:389328233:064323929:api@hotmail.com:Dispecer
+taske;juki;Tasana;Mitic;ZENSKI;05049958851845;0638357972;taske@gmail.com;Dispecerjulisnik;cackalica;Nikola;Jurisic;MUSKI;24119968895148;062241165;julis@gmail.com;Dispecer
