@@ -224,13 +224,14 @@
     <Content Include="Views\Prijava\RegistracijaPonovo.cshtml" />
     <Content Include="Views\Shared\PrikazVozaca.cshtml" />
     <Content Include="Views\Shared\PrikazDispecera.cshtml" />
-    <Content Include="Views\Dispecer\VoznjaNapravi.cshtml" />
+    <Content Include="Views\Dispecer\Voznja.cshtml" />
     <Content Include="Views\Dispecer\Izmena.cshtml" />
     <Content Include="Views\Dispecer\Vozac.cshtml" />
     <Content Include="Views\Dispecer\VozacPostoji.cshtml" />
-    <Content Include="Views\Dispecer\Uspesno.cshtml" />
+    <Content Include="Views\Dispecer\UspesnoVozac.cshtml" />
     <Content Include="Views\Dispecer\DispecerPostoji.cshtml" />
     <Content Include="Views\Dispecer\MusterijaPostoji.cshtml" />
+    <Content Include="Views\Dispecer\UspesnoVoznja.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

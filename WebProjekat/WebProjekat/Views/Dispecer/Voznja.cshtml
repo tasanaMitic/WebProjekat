@@ -1,0 +1,81 @@
+﻿@model WebProjekat.Models.Dispecer
+@{
+    ViewBag.Title = "Voznja";
+}
+
+<h2>Formiraj vožnju</h2>
+
+<html>
+<body>
+    <form action="/Dispecer/VoznjaNapravi">
+        <table border="1" align="center" style="background-color:cornsilk">
+
+            <tr>
+                <td colspan="2" align="center"></td>
+            </tr>
+
+            <tr>
+                <td>Ulica:</td>
+                <td><input type="text" name="ulica" /></td>
+            </tr>
+
+            <tr>
+                <td>Broj:</td>
+                <td><input type="text" name="broj" /></td>
+            </tr>
+
+            <tr>
+                <td>Ime mesta:</td>
+                <td><input type="text" name="mesto" /></td>
+            </tr>
+
+            <tr>
+                <td>Pozivni broj:</td>
+                <td><input type="text" name="pozivniBroj" /></td>
+            </tr>
+
+            <tr>
+                <td>Tip vozila:</td>
+                <td>
+                    <select name="tipVozila">
+                        <option value="PUTNICKI">Putnički</option>
+                        <option value="KOMBI">Kombi</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Slobodni vozači:</td>
+                <td>
+                    <select name="slobodanVozac">
+                        @foreach (WebProjekat.Models.Vozac v in WebProjekat.Models.Korisnici.ListaVozaca)
+                        {
+                            if (v.Zauzet == false)
+                            {
+                                <option value="@v.KorisnickoIme">@v.KorisnickoIme</option>
+                            }
+                        }
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="hidden" value="@Model.KorisnickoIme" name="dispecer" />
+                    <input type="submit" value="Sačuvaj" />
+                </td>
+            </tr>
+        </table>
+    </form>
+
+        <table align="center">
+            <tr>
+                <td>
+                    <form action="/Dispecer/Index">
+                        <input type="submit" value="Nazad" />
+                    </form>
+                </td>
+            </tr>
+    </table>
+</body>
+</html>
+

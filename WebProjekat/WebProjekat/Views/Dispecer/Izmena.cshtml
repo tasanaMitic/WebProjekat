@@ -9,80 +9,81 @@
 
 <html>
 <body>
+    <form action="/Dispecer/IzmeniPodatke">
+        <table border="1" style="background-color:cornsilk" align="center">
+            <tr>
+                <td colspan="2" align="center">UNESITE PODATKE:</td>
+            </tr>
 
-    <table border="1" style="background-color:cornsilk" align="center">
-        <tr>
-            <td colspan="2" align="center">UNESITE PODATKE:</td>
-        </tr>
+            <tr>
+                <td>Ime:</td>
+                <td><input type="text" value="@Model.Ime" name="ime" /></td>
+            </tr>
+            <tr>
+                <td>Prezime:</td>
+                <td><input type="text" value="@Model.Prezime" name="prezime" /></td>
+            </tr>
 
-        <tr>
-            <td>Ime:</td>
-            <td><input type="text" value="@Model.Ime" name="ime" /></td>
-        </tr>
-        <tr>
-            <td>Prezime:</td>
-            <td><input type="text" value="@Model.Prezime" name="prezime" /></td>
-        </tr>
+            <tr>
+                <td>Pol:</td>
+                <td>
+                    <select name="pol">
+                        @if (Model.Pol == WebProjekat.Models.Pol.MUSKI)
+                        {
+                            <option value="MUSKI" selected="selected">Muški</option>
+                            <option value="ZENSKI">Ženski</option>
+                        }
+                        else if (Model.Pol == WebProjekat.Models.Pol.ZENSKI)
+                        {
+                            <option value="MUSKI">Muški</option>
+                            <option value="ZENSKI" selected="selected">Ženski</option>
+                        }
+                    </select>
+                </td>
+            </tr>
 
-        <tr>
-            <td>Pol:</td>
-            <td>
-                <select name="pol">
-                    @if (Model.Pol == WebProjekat.Models.Pol.MUSKI)
-                    {
-                        <option value="MUSKI" selected="selected">Muški</option>
-                        <option value="ZENSKI">Ženski</option>
-                    }
-                    else if (Model.Pol == WebProjekat.Models.Pol.ZENSKI)
-                    {
-                        <option value="MUSKI">Muški</option>
-                        <option value="ZENSKI" selected="selected">Ženski</option>
-                    }
-                </select>
-            </td>
-        </tr>
+            <tr>
+                <td>Korisničko ime:</td>
+                <td><input type="text" value="@Model.KorisnickoIme" name="korisnickoIme" readonly="readonly" /></td>
 
-        <tr>
-            <td>Korisničko ime:</td>
-            <td><input type="text" value="@Model.KorisnickoIme" name="korisnickoIme" readonly="readonly" /></td>
+            </tr>
 
-        </tr>
+            <tr>
+                <td>Lozinka:</td>
+                <td><input type="text" value="@Model.Lozinka" name="lozinka" /></td>
+            </tr>
 
-        <tr>
-            <td>Lozinka:</td>
-            <td><input type="text" value="@Model.Lozinka" name="lozinka" /></td>
-        </tr>
+            <tr>
+                <td>JMBG:</td>
+                <td><input type="text" value="@Model.Jmbg" name="jmbg" /></td>
+            </tr>
 
-        <tr>
-            <td>JMBG:</td>
-            <td><input type="text" value="@Model.Jmbg" name="jmbg" /></td>
-        </tr>
+            <tr>
+                <td>Kontakt telefon:</td>
+                <td><input type="text" value="@Model.KontaktTelefon" name="brojTelefona" /></td>
+            </tr>
 
-        <tr>
-            <td>Kontakt telefon:</td>
-            <td><input type="text" value="@Model.KontaktTelefon" name="brojTelefona" /></td>
-        </tr>
+            <tr>
+                <td>E-mail:</td>
+                <td><input type="text" value="@Model.Email" name="email" /></td>
+            </tr>
 
-        <tr>
-            <td>E-mail:</td>
-            <td><input type="text" value="@Model.Email" name="email" /></td>
-        </tr>
-    </table>
-
-    <table align="center">
-        <tr>
-            <td>
-                <form action="/Dispecer/IzmeniPodatke">
+            <tr>
+                <td colspan="2" align="center">
                     <input type="submit" value="Sačuvaj" />
-                </form>
-            </td>
-            <td>
-                <form action="/Dispecer/Index">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <form action="/Dispecer/Index">
+        <table align="center">
+            <tr>
+                <td colspan="2" align="center">
                     <input type="submit" value="Nazad" />
-                </form>
-            </td>
-        </tr>
-    </table>
-   
+                </td>
+            </tr>
+        </table>
+    </form>
+
 </body>
 </html>

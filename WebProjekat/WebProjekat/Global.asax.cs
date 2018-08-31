@@ -147,7 +147,7 @@ namespace WebProjekat
                             }
                             else if (uloga == Uloga.VOZAC)
                             {
-                                Vozac vozac = new Vozac(korisnickoIme, lozinka, ime, prezime, pol, jmbg, telefon, email, uloga, ulica, brojUlice, grad, pozivniBroj);
+                                Vozac vozac = new Vozac(korisnickoIme, lozinka, ime, prezime, pol, jmbg, telefon, email, uloga, false, ulica, brojUlice, grad, pozivniBroj);
 
 
                                 reader.Read();
@@ -539,7 +539,7 @@ namespace WebProjekat
             }
             else
             {
-                vozac = new Vozac("nema", "nema", "nema", "nema", Pol.MUSKI, "0000", "nema", "nema", Uloga.VOZAC, ulica[0], ulica[1], grad[0], grad[1]);
+                vozac = new Vozac("nema", "nema", "nema", "nema", Pol.MUSKI, "0000", "nema", "nema", Uloga.VOZAC, false,  ulica[0], ulica[1], grad[0], grad[1]);
             }
 
             if (dispecerI != "nema" && dispecerP != "nema")

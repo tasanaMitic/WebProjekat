@@ -10,6 +10,7 @@ namespace WebProjekat.Models
     {
         public Automobil Automobil { get; set; }
         public Lokacija Lokacija { get; set; }
+        public bool Zauzet { get; set; }
 
         public Vozac()
         {
@@ -23,7 +24,7 @@ namespace WebProjekat.Models
             ListaVoznji = new List<Voznja>();
         }
 
-        public Vozac(string korisnickoIme, string lozinka, string ime, string prezime, Pol pol, string jmbg, string kontaktTelefon, string email, Uloga uloga, string ulica, string broj, string mesto, string pozivniBroj) : base(korisnickoIme, lozinka, ime, prezime, pol, jmbg, kontaktTelefon, email, uloga)
+        public Vozac(string korisnickoIme, string lozinka, string ime, string prezime, Pol pol, string jmbg, string kontaktTelefon, string email, Uloga uloga,bool zauzet, string ulica, string broj, string mesto, string pozivniBroj) : base(korisnickoIme, lozinka, ime, prezime, pol, jmbg, kontaktTelefon, email, uloga)
         {
             KorisnickoIme = korisnickoIme;
             Lozinka = lozinka;
@@ -33,7 +34,8 @@ namespace WebProjekat.Models
             Jmbg = jmbg;
             KontaktTelefon = kontaktTelefon;
             Email = email;
-            //Uloga = uloga;
+            Uloga = uloga;
+            Zauzet = zauzet;
             ListaVoznji = new List<Voznja>();
 
             Adresa adresa = new Adresa();

@@ -1,0 +1,13 @@
+﻿@model WebProjekat.Models.Voznja
+@{
+    ViewBag.Title = "UspesnoVoznja";
+}
+
+<html>
+<body>
+    <h2>Vožnja na lokaciju: @Model.LokacijaNaKojuTaxiDolazi.Adresa.Ulica @Model.LokacijaNaKojuTaxiDolazi.Adresa.Broj, @Model.LokacijaNaKojuTaxiDolazi.Adresa.NaseljenoMesto je uspešno kreirana.</h2>
+    <form action="/Dispecer/Index">
+        <input type="submit" value="Nazad" />
+    </form>
+</body>
+</html>

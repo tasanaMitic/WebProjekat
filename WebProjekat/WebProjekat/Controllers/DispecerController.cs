@@ -67,16 +67,6 @@ namespace WebProjekat.Controllers
             return View("PrikazDispecera", dispecer);
         }
 
-        public ActionResult VoznjaNapravi()
-        {
-            return View("VoznjaNapravi");
-        }
-
-        public ActionResult VoznjaObradi()
-        {
-            return View("VoznjaObradi");
-        }
-
         public ActionResult Vozac()
         {
             return View("Vozac");
@@ -95,7 +85,7 @@ namespace WebProjekat.Controllers
                 p = Pol.ZENSKI;
             }
 
-            Vozac vozac = new Vozac(korisnickoIme, lozinka, ime, prezime, p, jmbg, brojTelefona, email, Uloga.VOZAC, ulica, broj, mesto, pozivniBroj );
+            Vozac vozac = new Vozac(korisnickoIme, lozinka, ime, prezime, p, jmbg, brojTelefona, email, Uloga.VOZAC, false, ulica, broj, mesto, pozivniBroj );
 
             TipAutomobila tip = TipAutomobila.KOMBI;
 
@@ -149,9 +139,86 @@ namespace WebProjekat.Controllers
 
             Korisnici.ListaVozaca.Add(vozac);
 
-            return View("Uspesno", vozac);            
+            return View("UspesnoVozac", vozac);            
         }
 
+        public ActionResult Voznja()
+        {
+            Dispecer dispecer = (Dispecer)Session["korisnik"];
+            return View("Voznja", dispecer);
+        }
+
+        public ActionResult VoznjaNapravi(string ulica, string broj, string mesto, string pozivniBroj, string tipVozila, string slobodanVozac, string dispecer)
+        {
+            Adresa adresa = new Adresa(ulica, broj, mesto, pozivniBroj);
+            Lokacija lokacija = new Lokacija("3", "4", adresa);
+
+            Voznja voznja = new Voznja();
+            voznja.DatumVremePorudzbine = DateTime.Now;
+
+            Dispecer d = new Dispecer();
+            foreach(Dispecer di in Korisnici.ListaDispecera)
+            {
+                if(di.KorisnickoIme == dispecer)
+                {
+                    d = di;
+                }
+            }
+
+            voznja.Dispecer = d;
+            voznja.LokacijaNaKojuTaxiDolazi = lokacija;
+
+            TipAutomobila tip = TipAutomobila.PUTNICKI;
+            if(tipVozila == "PUTNICKI")
+            {
+                tip = TipAutomobila.PUTNICKI;
+            }
+            else if(tipVozila == "KOMBI")
+            {
+                tip = TipAutomobila.KOMBI;
+            }
+
+            voznja.TipAutomobila = tip;
+
+            Vozac vozac = new Vozac();
+            foreach(Vozac v in Korisnici.ListaVozaca)
+            {
+                if(v.KorisnickoIme == slobodanVozac)
+                {
+                    v.Zauzet = true;
+                    vozac = v;
+                }
+            }
+
+            voznja.Vozac = vozac;
+            voznja.StatusVoznje = Models.Enums.StatusVoznje.KREIRANA;
+
+            d.ListaVoznji.Add(voznja);
+
+            foreach (Vozac v in Korisnici.ListaVozaca)
+            {
+                if (v.KorisnickoIme == slobodanVozac)
+                {
+                    v.ListaVoznji.Add(voznja);
+                }
+            }
+            Korisnici.ListaSvihVoznji.Add(voznja);
+
+            foreach(Korisnik k in Korisnici.ListaKorisnika)
+            {
+                if(k.KorisnickoIme == slobodanVozac)
+                {
+                    k.ListaVoznji.Add(voznja);
+                }
+            }
+
+            return View("UspesnoVoznja", voznja);
+        }
+
+        public ActionResult VoznjaObradi()
+        {
+            return View("VoznjaObradi");
+        }
 
     }
 }
