@@ -218,13 +218,19 @@
     <Content Include="Views\Prijava\Registracija.cshtml" />
     <Content Include="Views\Prijava\RegistracijaNeuspesna.cshtml" />
     <Content Include="Views\Prijava\PrijavaNeuspesna.cshtml" />
-    <Content Include="Views\Prijava\PrikazMusterije.cshtml" />
+    <Content Include="Views\Shared\PrikazMusterije.cshtml" />
     <Content Include="Views\Prijava\KorisnikNePostoji.cshtml" />
     <Content Include="Views\Prijava\Prijava.cshtml" />
     <Content Include="Views\Prijava\RegistracijaPonovo.cshtml" />
-    <Content Include="Views\Prijava\PrikazVozaca.cshtml" />
-    <Content Include="Views\Prijava\PrikazDispecera.cshtml" />
+    <Content Include="Views\Shared\PrikazVozaca.cshtml" />
+    <Content Include="Views\Shared\PrikazDispecera.cshtml" />
     <Content Include="Views\Dispecer\VoznjaNapravi.cshtml" />
+    <Content Include="Views\Dispecer\Izmena.cshtml" />
+    <Content Include="Views\Dispecer\Vozac.cshtml" />
+    <Content Include="Views\Dispecer\VozacPostoji.cshtml" />
+    <Content Include="Views\Dispecer\Uspesno.cshtml" />
+    <Content Include="Views\Dispecer\DispecerPostoji.cshtml" />
+    <Content Include="Views\Dispecer\MusterijaPostoji.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
