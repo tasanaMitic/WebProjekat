@@ -18,7 +18,7 @@ namespace WebProjekat.Models
 
         public Vozac(Automobil automobil, Lokacija lokacija)
         {
-            Automobil = automobil; ///mozda nece raditi
+            Automobil = automobil;
             Lokacija = lokacija;
             ListaVoznji = new List<Voznja>();
         }

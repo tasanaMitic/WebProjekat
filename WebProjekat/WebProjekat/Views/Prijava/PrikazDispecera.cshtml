@@ -1,7 +1,74 @@
-﻿
+﻿@model WebProjekat.Models.Dispecer
 @{
     ViewBag.Title = "PrikazDispecera";
 }
 
-<h2>PrikazDispecera</h2>
+<div style="text-align:center">
+    <h2>Vaši podaci</h2>
+</div>
+
+<html>
+<body>
+    <table style="background-color:cornsilk" border="1" align="center">
+        <tr>
+            <td>Korisničko ime:</td>
+            <td><label>@Model.KorisnickoIme</label></td>
+        </tr>
+        <tr>
+            <td>Ime:</td>
+            <td><label>@Model.Ime</label></td>
+        </tr>
+        <tr>
+            <td>Prezime:</td>
+            <td><label>@Model.Prezime</label></td>
+        </tr>
+        <tr>
+            <td>Jmbg:</td>
+            <td><label>@Model.Jmbg</label></td>
+        </tr>
+        <tr>
+            <td>Pol:</td>
+            <td><label>@Model.Pol</label></td>
+        </tr>
+        <tr>
+            <td>E-mail:</td>
+            <td><label>@Model.Email</label></td>
+        </tr>
+        <tr>
+            <td>Kontakt telefon:</td>
+            <td><label>@Model.KontaktTelefon</label></td>
+        </tr>
+    </table>
+
+    <table align="center">
+        <tr>
+            <td>
+                <form action="/Dispecer/Izmena">
+                    <input type="submit" value="Izmeni profil" />
+                </form>
+            </td>
+            <td>
+                <form action="/Dispecer/Vozac">
+                    <input type="submit" value="Dodaj vozača" />
+                </form>
+            </td>
+            <td>
+                <form action="/Dispecer/VoznjaNapravi">
+                    <input type="submit" value="Napravi voznju" />
+                </form>
+            </td>
+            <td>
+                <form action="/Dispecer/VoznjaObradi">
+                    <input type="submit" value="Obradi voznju" />
+                </form>
+            </td>
+            <td>
+                <form action="/Dispecer/Odjava">
+                    <input type="submit" value="Odjavi se" />
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
 

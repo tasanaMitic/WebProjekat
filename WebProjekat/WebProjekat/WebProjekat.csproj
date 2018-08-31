@@ -155,6 +155,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\DispecerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PrijavaController.cs" />
     <Compile Include="Global.asax.cs">
@@ -223,10 +224,10 @@
     <Content Include="Views\Prijava\RegistracijaPonovo.cshtml" />
     <Content Include="Views\Prijava\PrikazVozaca.cshtml" />
     <Content Include="Views\Prijava\PrikazDispecera.cshtml" />
+    <Content Include="Views\Dispecer\VoznjaNapravi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Registracija\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

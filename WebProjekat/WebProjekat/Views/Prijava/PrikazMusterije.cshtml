@@ -4,9 +4,13 @@
     ViewBag.Title = "PrikazMusterije";
 }
 
+<div style="text-align:center">
+    <h2>Vaši podaci</h2>
+</div>
+
 <html>
 <body>
-    <table style="background-color:aliceblue" border="1">
+    <table style="background-color:aliceblue" border="1" align="center">
         <tr>
             <td>Korisničko ime:</td>
             <td><label>@Model.KorisnickoIme</label></td>
@@ -37,7 +41,7 @@
         </tr>
     </table>
 
-    <table>
+    <table align="center">
         <tr>
             <td>
                 <form action="/Musterija/Izmena">

@@ -1,7 +1,97 @@
-﻿
+﻿@model WebProjekat.Models.Vozac
 @{
     ViewBag.Title = "PrikazVozaca";
 }
 
-<h2>PrikazVozaca</h2>
+<div style="text-align:center">
+    <h2>Vaši podaci</h2>
+</div>
+
+<html>
+<body>
+    <table style="background-color:lemonchiffon" border="1">
+        <tr>
+            <td>Korisničko ime:</td>
+            <td><label>@Model.KorisnickoIme</label></td>
+        </tr>
+        <tr>
+            <td>Ime:</td>
+            <td><label>@Model.Ime</label></td>
+        </tr>
+        <tr>
+            <td>Prezime:</td>
+            <td><label>@Model.Prezime</label></td>
+        </tr>
+        <tr>
+            <td>Jmbg:</td>
+            <td><label>@Model.Jmbg</label></td>
+        </tr>
+        <tr>
+            <td>Pol:</td>
+            <td><label>@Model.Pol</label></td>
+        </tr>
+        <tr>
+            <td>E-mail:</td>
+            <td><label>@Model.Email</label></td>
+        </tr>
+        <tr>
+            <td>Kontakt telefon:</td>
+            <td><label>@Model.KontaktTelefon</label></td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <td>
+                <form action="/Vozac/Izmena">
+                    <input type="submit" value="Izmeni profil" />
+                </form>
+            </td>
+            <td>
+                <form action="/Vozac/Odjava">
+                    <input type="submit" value="Odjavi se" />
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <div style="text-align:center">
+        <h2>Vaša trenutna lokacija je: @Model.Lokacija.Adresa.Ulica @Model.Lokacija.Adresa.Broj, @Model.Lokacija.Adresa.NaseljenoMesto @Model.Lokacija.Adresa.PozivniBrojMesta</h2>
+        <form action="/Vozac/PromenaLokacije">
+            <input type="submit" value="Promeni lokaciju" />
+        </form>
+    </div>
+
+        <div style="text-align:center">
+            <h2>Podaci o vašem automobilu</h2>
+        </div>
+        <table style="background-color:lemonchiffon">
+            <tr>
+                <td>
+                    Godiste:
+                </td>
+                <td><label>@Model.Automobil.GodisteAutomobila</label></td>
+            </tr>
+            <tr>
+                <td>
+                    Registarska oznaka:
+                </td>
+                <td><label>@Model.Automobil.BrojRegistarskeOznake</label></td>
+            </tr>
+            <tr>
+                <td>
+                    Tip:
+                </td>
+                <td><label>@Model.Automobil.TipAutomobila</label></td>
+            </tr>
+            <tr>
+                <td>
+                    Broj vozila:
+                </td>
+                <td><label>@Model.Automobil.BrojTaxiVozila</label></td>
+            </tr>
+        </table>
+</body>
+</html>
+
 
