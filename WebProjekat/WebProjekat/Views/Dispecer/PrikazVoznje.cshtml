@@ -1,0 +1,103 @@
+﻿@model WebProjekat.Models.Voznja
+@{
+    ViewBag.Title = "PrikazVoznje";
+}
+
+<div style="text-align:center">
+    <h2>Podaci o vožnji</h2>
+</div>
+
+<html>
+<body>
+    <table style="background-color:cornsilk" border="1" align="center">
+        <tr>
+            <td>Datum i vreme porudžbine:</td>
+            <td><label>@Model.DatumVremePorudzbine</label></td>
+        </tr>
+
+        <tr>
+            <td>Lokacija na koju taxi dolazi:</td>
+            <td><label>@Model.LokacijaNaKojuTaxiDolazi.Adresa.Ulica @Model.LokacijaNaKojuTaxiDolazi.Adresa.Broj @Model.LokacijaNaKojuTaxiDolazi.Adresa.NaseljenoMesto @Model.LokacijaNaKojuTaxiDolazi.Adresa.PozivniBrojMesta </label></td>
+        </tr>
+
+        @if (Model.Odrediste != null)
+        {
+        <tr>
+            <td>Odredište:</td>
+            <td><label>@Model.Odrediste.Adresa.Ulica @Model.Odrediste.Adresa.Broj @Model.Odrediste.Adresa.NaseljenoMesto @Model.Odrediste.Adresa.PozivniBrojMesta</label></td>
+        </tr>
+        }
+
+        <tr>
+            <td>Tip automobila:</td>
+            <td><label>@Model.TipAutomobila</label></td>
+        </tr>
+
+        <tr>
+            <td>Dispečer:</td>
+            <td><label>@Model.Dispecer.KorisnickoIme</label></td>
+        </tr>
+
+        <tr>
+            <td>Vozač:</td>
+            <td><label>@Model.Vozac.KorisnickoIme</label></td>
+        </tr>
+
+        @if (Model.Musterija != null)
+        {
+        <tr>
+            <td>Mušterija:</td>
+            <td><label>@Model.Musterija.KorisnickoIme</label></td>
+        </tr>
+        }
+
+        @if (Model.Iznos != null)
+        {
+        <tr>
+            <td>Iznos:</td>
+            <td><label>@Model.Iznos</label></td>
+        </tr>
+        }
+
+        <tr>
+            <td>Status vožnje:</td>
+            <td><label>@Model.StatusVoznje</label></td>
+        </tr>
+
+        @if (Model.Komentar != null)
+        {
+        <tr>
+            <td colspan="2" align="center">Komentar:</td>
+        </tr>
+
+        <tr>
+            <td>Korisničko ime:</td>
+            <td><label>@Model.Komentar.KorisnikKomentara.KorisnickoIme</label></td>
+        </tr>
+
+        <tr>
+            <td>Ocena vožnje:</td>
+            <td><label>@Model.Komentar.Ocena</label></td>
+        </tr>
+
+        <tr>
+            <td>Datum objave:</td>
+            <td><label>@Model.Komentar.DatumObjave</label></td>
+        </tr>
+
+        <tr>
+            <td>Tekst:</td>
+            <td><label>@Model.Komentar.Opis</label></td>
+        </tr>
+        }
+
+        <tr>
+            <td colspan="2" align="center">
+                <form action="/Dispecer/Index">
+                    <input type="submit" value="Nazad" />
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

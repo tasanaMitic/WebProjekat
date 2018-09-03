@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebProjekat.Models;
+using WebProjekat.Models.Enums;
 
 namespace WebProjekat.Controllers
 {
@@ -13,7 +14,6 @@ namespace WebProjekat.Controllers
         public ActionResult Index()
         {
             Vozac vozac = (Vozac)Session["korisnik"];
-
             return View("PrikazVozaca", vozac);
         }
 
@@ -21,10 +21,10 @@ namespace WebProjekat.Controllers
         {
             foreach (Vozac v in Korisnici.ListaVozaca)
             {
-                if (v == HttpContext.Application["Vozac"])
+                if (v == Session["korisnik"])
                 {
                     v.Prijavljen = false;
-                    HttpContext.Application["Vozac"] = null;
+                    Session["korisnik"] = null;
                 }
             }
 
@@ -98,9 +98,9 @@ namespace WebProjekat.Controllers
 
             Vozac v = new Vozac();
 
-            foreach(Vozac vo in Korisnici.ListaVozaca)
+            foreach (Vozac vo in Korisnici.ListaVozaca)
             {
-                if(vo.KorisnickoIme == vozac)
+                if (vo.KorisnickoIme == vozac)
                 {
                     v = vo;
                 }
@@ -109,6 +109,135 @@ namespace WebProjekat.Controllers
             v.Lokacija = lokacija;
 
             return View("UspesnaLokacija", v);
+        }
+
+        public ActionResult VoznjaInfo(string vozac, string index)
+        {
+            Voznja voznja = new Voznja();
+            int i = Int32.Parse(index);
+
+            foreach (Vozac v in Korisnici.ListaVozaca)
+            {
+                if (v.KorisnickoIme == vozac)
+                {
+                    voznja = v.ListaVoznji[i - 1];
+                }
+            }
+            return View("PrikazVoznje", voznja);
+        }
+
+        public ActionResult SveVoznjeInfo(string index)
+        {
+            Voznja voznja = new Voznja();
+            int i = Int32.Parse(index);
+
+            foreach (Voznja v in Korisnici.ListaSvihVoznji)
+            {
+                if (Korisnici.ListaSvihVoznji[i - 1] == v)
+                {
+                    voznja = v;
+                }
+            }
+            return View("PrikazVoznje", voznja);
+        }
+
+        public ActionResult StatusVoznje(string index, string vozac)
+        {
+            Voznja voznja = new Voznja();
+            int i = Int32.Parse(index);
+
+            foreach (Vozac v in Korisnici.ListaVozaca)
+            {
+                if (v.KorisnickoIme == vozac)
+                {
+                    voznja = v.ListaVoznji[i - 1];
+                }
+            }
+            return View("StatusVoznje", voznja);
+        }
+
+        public ActionResult StatusVoznjePromenjen(string statusVoznje, string index)
+        {            
+            int i = Int32.Parse(index);
+            Voznja voznja = Korisnici.ListaSvihVoznji[i];
+            if(statusVoznje == "NEUSPESNA")
+            {
+                voznja.StatusVoznje = Models.Enums.StatusVoznje.NEUSPESNA;
+                return View("NeuspesnaVoznja", voznja);
+            }
+            else
+            {
+                voznja.StatusVoznje = Models.Enums.StatusVoznje.USPESNA;
+                return View("UspesnaVoznja", voznja);
+            }         
+        }
+
+        public ActionResult UspesnaVoznja(string ulica, string broj, string mesto, string pozivniBroj, string iznos, string index)
+        {
+            int i = Int32.Parse(index);
+            Voznja voznja = Korisnici.ListaSvihVoznji[i];
+
+            if (ulica == "" || broj == "" || mesto == "" || pozivniBroj == "" || iznos == "")
+            {
+                return View("VoznjaPonovo", voznja);
+            }                     
+
+            Adresa adresa = new Adresa(ulica, broj, mesto, pozivniBroj);
+            Lokacija lokacija = new Lokacija("3", "4", adresa);
+
+            voznja.Odrediste = lokacija;
+            voznja.Iznos = iznos;
+            voznja.Vozac.Zauzet = false;
+
+            return View("PrikazVoznje", voznja);
+        }
+
+        public ActionResult NeuspesnaVoznja(string ocena, string komentar, string index)
+        {
+            int i = Int32.Parse(index);
+            Voznja voznja = Korisnici.ListaSvihVoznji[i];
+            Komentar kom = new Komentar();
+
+            if (ocena == "" || komentar == "")
+            {
+                return View("VoznjaPonovo", voznja);
+            }
+
+            Ocena o = Ocena.NEOCENJEN;
+            if(ocena == "NEOCENJEN")
+            {
+                o = Ocena.NEOCENJEN;
+            }
+            else if(ocena == "VRLOLOSE")
+            {
+                o = Ocena.VRLOLOSE;
+            }
+            else if(ocena == "LOSE")
+            {
+                o = Ocena.LOSE;
+            }
+            else if (ocena == "DOBRO")
+            {
+                o = Ocena.DOBRO;
+            }
+            else if (ocena == "VRLODOBRO")
+            {
+                o = Ocena.VRLODOBRO;
+            }
+            else if (ocena == "ODLICNO")
+            {
+                o = Ocena.ODLICNO;
+            }
+
+            kom.Ocena = o;
+            kom.DatumObjave = DateTime.Now;
+            kom.KorisnikKomentara = voznja.Vozac;
+            kom.Opis = komentar;
+            kom.VoznjaKomentara = voznja;
+
+            voznja.Komentar = kom;
+
+            return View("PrikazVoznje", voznja);
         }
     }
 }

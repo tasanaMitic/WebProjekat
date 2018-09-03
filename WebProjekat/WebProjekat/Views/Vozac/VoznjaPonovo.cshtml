@@ -1,0 +1,26 @@
+﻿@model WebProjekat.Models.Voznja
+@{
+    ViewBag.Title = "VoznjaPonovo";
+}
+
+<h2>Morate uneti sve podatke!</h2>
+
+<html>
+<body>
+    @{int i = 0;
+        foreach (WebProjekat.Models.Voznja v in WebProjekat.Models.Korisnici.ListaSvihVoznji)
+        {
+            if (v == Model)
+            {
+                i = WebProjekat.Models.Korisnici.ListaSvihVoznji.IndexOf(v);
+            }
+        }
+    }
+    <form action="/Vozac/StatusVoznjePromenjen">
+        <input type="hidden" name="index" value="@i" />
+        <input type="hidden" name="statusVoznje" value="@Model.StatusVoznje"/>
+        <input type="submit" value="Nazad" />
+    </form>
+</body>
+</html>
+

@@ -13,18 +13,17 @@ namespace WebProjekat.Controllers
         public ActionResult Index()
         {
             Dispecer dispecer = (Dispecer)Session["korisnik"];
-
             return View("PrikazDispecera", dispecer);
         }
 
         public ActionResult Odjava()
         {
-            foreach(Dispecer d in Korisnici.ListaDispecera)
+            foreach (Dispecer d in Korisnici.ListaDispecera)
             {
-                if(d == HttpContext.Application["Dispecer"])
+                if (d == (Dispecer)Session["korisnik"])
                 {
                     d.Prijavljen = false;
-                    HttpContext.Application["Dispecer"] = null;
+                    Session["korisnik"] = null;
                 }
             }
             return View("Prijava");
@@ -70,7 +69,7 @@ namespace WebProjekat.Controllers
             Korisnik korisnik = new Korisnik();
             foreach (Korisnik k in Korisnici.ListaKorisnika)
             {
-                if(k.KorisnickoIme == dispecer.KorisnickoIme)
+                if (k.KorisnickoIme == dispecer.KorisnickoIme)
                 {
                     korisnik = dispecer;
                     break;
@@ -85,32 +84,32 @@ namespace WebProjekat.Controllers
             return View("Vozac");
         }
 
-        public ActionResult VozacNapravi(string ime, string prezime, string pol, string korisnickoIme, string lozinka,string jmbg, string brojTelefona, string email, string ulica, string broj, string mesto,string pozivniBroj, string godiste, string registracija, string taxi, string tipVozila)
+        public ActionResult VozacNapravi(string ime, string prezime, string pol, string korisnickoIme, string lozinka, string jmbg, string brojTelefona, string email, string ulica, string broj, string mesto, string pozivniBroj, string godiste, string registracija, string taxi, string tipVozila)
         {
-            if (ime == "" || prezime == "" || korisnickoIme == "" || lozinka == "" || jmbg == "" || brojTelefona == "" || email == "" || ulica == "" || broj == "" || mesto == "" || pozivniBroj == "" || godiste == "" || registracija == "" || taxi == "" || tipVozila == "")
+            if (ime == "" || prezime == "" || korisnickoIme == "" || lozinka == "" || jmbg == "" || brojTelefona == "" || email == "" || ulica == "" || broj == "" || mesto == "" || pozivniBroj == "" || godiste == "" || registracija == "" || taxi == "")
             {
                 return View("VozacPonovo");
             }
             Pol p = Pol.MUSKI;
 
-            if(pol == "MUSKI")
+            if (pol == "MUSKI")
             {
                 p = Pol.MUSKI;
             }
-            else if(pol == "ZENSKI")
+            else if (pol == "ZENSKI")
             {
                 p = Pol.ZENSKI;
             }
 
-            Vozac vozac = new Vozac(korisnickoIme, lozinka, ime, prezime, p, jmbg, brojTelefona, email, Uloga.VOZAC, false, ulica, broj, mesto, pozivniBroj );
+            Vozac vozac = new Vozac(korisnickoIme, lozinka, ime, prezime, p, jmbg, brojTelefona, email, Uloga.VOZAC, false, ulica, broj, mesto, pozivniBroj);
 
-            TipAutomobila tip = TipAutomobila.KOMBI;
+            TipAutomobila tip = TipAutomobila.PUTNICKI;
 
-            if(tipVozila == "KOMBI")
+            if (tipVozila == "KOMBI")
             {
                 tip = TipAutomobila.KOMBI;
             }
-            else if(tipVozila == "PUTNICKI")
+            else if (tipVozila == "PUTNICKI")
             {
                 tip = TipAutomobila.PUTNICKI;
             }
@@ -123,19 +122,19 @@ namespace WebProjekat.Controllers
                 korisnici.Add(k.KorisnickoIme);
             }
 
-            if(korisnici.Contains(vozac.KorisnickoIme))
+            if (korisnici.Contains(vozac.KorisnickoIme))
             {
-                foreach(Dispecer d in Korisnici.ListaDispecera)
+                foreach (Dispecer d in Korisnici.ListaDispecera)
                 {
-                    if(d.KorisnickoIme == vozac.KorisnickoIme)
+                    if (d.KorisnickoIme == vozac.KorisnickoIme)
                     {
                         return View("DispecerPostoji");
                     }
                 }
 
-                foreach(Musterija m in Korisnici.ListaMusterija)
+                foreach (Musterija m in Korisnici.ListaMusterija)
                 {
-                    if(m.KorisnickoIme == vozac.KorisnickoIme)
+                    if (m.KorisnickoIme == vozac.KorisnickoIme)
                     {
                         return View("MusterijaPostoji");
                     }
@@ -148,7 +147,7 @@ namespace WebProjekat.Controllers
 
             foreach (Vozac v in Korisnici.ListaVozaca)
             {
-                if(v.KorisnickoIme == korisnickoIme)
+                if (v.KorisnickoIme == korisnickoIme)
                 {
                     return View("VozacPostoji");
                 }
@@ -156,7 +155,7 @@ namespace WebProjekat.Controllers
 
             Korisnici.ListaVozaca.Add(vozac);
 
-            return View("UspesnoVozac", vozac);            
+            return View("UspesnoVozac", vozac);
         }
 
         public ActionResult Voznja()
@@ -167,7 +166,7 @@ namespace WebProjekat.Controllers
 
         public ActionResult VoznjaNapravi(string ulica, string broj, string mesto, string pozivniBroj, string tipVozila, string slobodanVozac, string dispecer)
         {
-            if(ulica == "" || broj == "" || mesto == "" || pozivniBroj == "" || slobodanVozac == "" || dispecer == "")
+            if (ulica == "" || broj == "" || mesto == "" || pozivniBroj == "" || slobodanVozac == "" || dispecer == "")
             {
                 return View("VoznjaPonovo");
             }
@@ -179,9 +178,9 @@ namespace WebProjekat.Controllers
             voznja.DatumVremePorudzbine = DateTime.Now;
 
             Dispecer d = new Dispecer();
-            foreach(Dispecer di in Korisnici.ListaDispecera)
+            foreach (Dispecer di in Korisnici.ListaDispecera)
             {
-                if(di.KorisnickoIme == dispecer)
+                if (di.KorisnickoIme == dispecer)
                 {
                     d = di;
                 }
@@ -191,11 +190,11 @@ namespace WebProjekat.Controllers
             voznja.LokacijaNaKojuTaxiDolazi = lokacija;
 
             TipAutomobila tip = TipAutomobila.PUTNICKI;
-            if(tipVozila == "PUTNICKI")
+            if (tipVozila == "PUTNICKI")
             {
                 tip = TipAutomobila.PUTNICKI;
             }
-            else if(tipVozila == "KOMBI")
+            else if (tipVozila == "KOMBI")
             {
                 tip = TipAutomobila.KOMBI;
             }
@@ -203,9 +202,9 @@ namespace WebProjekat.Controllers
             voznja.TipAutomobila = tip;
 
             Vozac vozac = new Vozac();
-            foreach(Vozac v in Korisnici.ListaVozaca)
+            foreach (Vozac v in Korisnici.ListaVozaca)
             {
-                if(v.KorisnickoIme == slobodanVozac)
+                if (v.KorisnickoIme == slobodanVozac)
                 {
                     v.Zauzet = true;
                     vozac = v;
@@ -217,24 +216,54 @@ namespace WebProjekat.Controllers
 
             d.ListaVoznji.Add(voznja);
 
-            foreach (Vozac v in Korisnici.ListaVozaca)
+           /* foreach (Vozac v in Korisnici.ListaVozaca)
             {
                 if (v.KorisnickoIme == slobodanVozac)
                 {
                     v.ListaVoznji.Add(voznja);
                 }
-            }
+            }*/
             Korisnici.ListaSvihVoznji.Add(voznja);
 
-            foreach(Korisnik k in Korisnici.ListaKorisnika)
+            foreach (Korisnik k in Korisnici.ListaKorisnika)
             {
-                if(k.KorisnickoIme == slobodanVozac)
+                if (k.KorisnickoIme == slobodanVozac)
                 {
                     k.ListaVoznji.Add(voznja);
                 }
             }
 
             return View("UspesnoVoznja", voznja);
+        }
+
+        public ActionResult VoznjaInfo(string dispecer, string index)
+        {
+            Voznja voznja = new Voznja();
+            int i = Int32.Parse(index);
+
+            foreach (Dispecer d in Korisnici.ListaDispecera)
+            {
+                if (d.KorisnickoIme == dispecer)
+                {
+                    voznja = d.ListaVoznji[i - 1];
+                }
+            }
+            return View("PrikazVoznje", voznja);
+        }
+
+        public ActionResult SveVoznjeInfo(string index)
+        {
+            Voznja voznja = new Voznja();
+            int i = Int32.Parse(index);
+
+            foreach(Voznja v in Korisnici.ListaSvihVoznji)
+            {
+                if(Korisnici.ListaSvihVoznji[i-1] == v)
+                {
+                    voznja = v;
+                }
+            }
+            return View("PrikazVoznje", voznja);
         }
 
        /* public ActionResult VoznjaObradi()

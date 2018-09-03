@@ -69,6 +69,95 @@
             </td>
         </tr>
     </table>
+
+    @if (Model.ListaVoznji.Count > 0)
+    {
+        <div>
+            <h2>Vaše vožnje</h2>
+        </div>
+
+        <table border="1" style="background-color:cornsilk">
+
+            @foreach (WebProjekat.Models.Voznja v in @Model.ListaVoznji)
+            {
+                int i = @Model.ListaVoznji.IndexOf(v) + 1;
+
+                <tr>
+                    <td colspan="2" align="center">VOŽNJA @i.ToString()</td>
+                </tr>
+
+                <tr>
+                    <td>Datum i vreme porudžbine:</td>
+                    <td><label>@v.DatumVremePorudzbine</label></td>
+                </tr>
+
+                <tr>
+                    <td>Lokacija na koju taxi dolazi:</td>
+                    <td><label>@v.LokacijaNaKojuTaxiDolazi.Adresa.Ulica @v.LokacijaNaKojuTaxiDolazi.Adresa.Broj @v.LokacijaNaKojuTaxiDolazi.Adresa.NaseljenoMesto</label></td>
+                </tr>
+
+                <tr>
+                    <td>Status vožnje:</td>
+                    <td><label>@v.StatusVoznje</label></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" align="center">
+                        <form action="/Dispecer/VoznjaInfo">
+                            <input type="hidden" name="dispecer" value="@Model.KorisnickoIme" />
+                            <input type="hidden" name="index" value="@i" />
+                            <input type="submit" value="Prikaži sve informacije" />
+                        </form>
+                    </td>
+                </tr>
+        }
+        </table>
+    }
+
+    @if (WebProjekat.Models.Korisnici.ListaSvihVoznji.Count > 0)
+    {
+
+        <div>
+            <h2>Sve vožnje u sistemu</h2>
+        </div>
+
+        <table border="1" style="background-color:cornsilk">
+
+            @foreach (WebProjekat.Models.Voznja v in WebProjekat.Models.Korisnici.ListaSvihVoznji)
+            {
+                int i = Model.ListaVoznji.IndexOf(v) + 1;
+
+                <tr>
+                    <td colspan="2" align="center">VOŽNJA @i.ToString()</td>
+                </tr>
+
+                <tr>
+                    <td>Datum i vreme porudžbine:</td>
+                    <td><label>@v.DatumVremePorudzbine</label></td>
+                </tr>
+
+                <tr>
+                    <td>Lokacija na koju taxi dolazi:</td>
+                    <td><label>@v.LokacijaNaKojuTaxiDolazi.Adresa.Ulica @v.LokacijaNaKojuTaxiDolazi.Adresa.Broj @v.LokacijaNaKojuTaxiDolazi.Adresa.NaseljenoMesto</label></td>
+                </tr>
+
+                <tr>
+                    <td>Status vožnje:</td>
+                    <td><label>@v.StatusVoznje</label></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" align="center">
+                        <form action="/Dispecer/SveVoznjeInfo">
+                            <input type="hidden" name="index" value="@i" />
+                            <input type="submit" value="Prikaži sve informacije" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+
 </body>
 </html>
 

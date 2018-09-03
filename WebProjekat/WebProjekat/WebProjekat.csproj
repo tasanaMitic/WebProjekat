@@ -157,6 +157,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DispecerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MusterijaController.cs" />
     <Compile Include="Controllers\PrijavaController.cs" />
     <Compile Include="Controllers\VozacController.cs" />
     <Compile Include="Global.asax.cs">
@@ -239,6 +240,13 @@
     <Content Include="Views\Vozac\Lokacija.cshtml" />
     <Content Include="Views\Vozac\LokacijaPonovo.cshtml" />
     <Content Include="Views\Vozac\UspesnaLokacija.cshtml" />
+    <Content Include="Views\Musterija\Izmena.cshtml" />
+    <Content Include="Views\Dispecer\PrikazVoznje.cshtml" />
+    <Content Include="Views\Vozac\PrikazVoznje.cshtml" />
+    <Content Include="Views\Vozac\StatusVoznje.cshtml" />
+    <Content Include="Views\Vozac\UspesnaVoznja.cshtml" />
+    <Content Include="Views\Vozac\NeuspesnaVoznja.cshtml" />
+    <Content Include="Views\Vozac\VoznjaPonovo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

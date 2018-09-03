@@ -1,0 +1,52 @@
+﻿@model WebProjekat.Models.Voznja
+@{
+    ViewBag.Title = "StatusVoznje";
+    ViewBag.Voznja = @Model;
+}
+
+@{int i = 0;
+    foreach (WebProjekat.Models.Voznja v in WebProjekat.Models.Korisnici.ListaSvihVoznji)
+    {
+        if (v == Model)
+        {
+            i = WebProjekat.Models.Korisnici.ListaSvihVoznji.IndexOf(v);
+        }
+    }
+}
+
+<h2>Trenutni status vožnje je @Model.StatusVoznje.</h2>
+<h1>Odaberite žejeni status vožnje:</h1>
+
+<html>
+<body>
+    <form action="/Vozac/StatusVoznjePromenjen">
+        <table align="center">
+            <tr>
+                <td>
+                    <select name="statusVoznje">
+                        <option value="NEUSPESNA" selected="selected">NEUSPEŠNA</option>
+                        <option value="USPESNA">USPEŠNA</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="hidden" name="index" value="@i" />
+                    <input type="submit" value="Sačuvaj" />
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <form action="/Vozac/Index">
+        <table align="center">
+            <tr>
+                <td colspan="2" align="right">
+                    <input type="submit" value="Nazad" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+
