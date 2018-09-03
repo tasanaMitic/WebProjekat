@@ -9,7 +9,7 @@
 
 <html>
 <body>
-    <table style="background-color:lemonchiffon" border="1">
+    <table style="background-color:lemonchiffon" border="1" align="center">
         <tr>
             <td>Korisničko ime:</td>
             <td><label>@Model.KorisnickoIme</label></td>
@@ -40,7 +40,7 @@
         </tr>
     </table>
 
-    <table>
+    <table align="center">
         <tr>
             <td>
                 <form action="/Vozac/Izmena">
@@ -57,7 +57,7 @@
 
     <div style="text-align:center">
         <h2>Vaša trenutna lokacija je: @Model.Lokacija.Adresa.Ulica @Model.Lokacija.Adresa.Broj, @Model.Lokacija.Adresa.NaseljenoMesto @Model.Lokacija.Adresa.PozivniBrojMesta</h2>
-        <form action="/Vozac/PromenaLokacije">
+        <form action="/Vozac/Lokacija">
             <input type="submit" value="Promeni lokaciju" />
         </form>
     </div>
@@ -65,7 +65,7 @@
         <div style="text-align:center">
             <h2>Podaci o vašem automobilu</h2>
         </div>
-        <table style="background-color:lemonchiffon">
+        <table style="background-color:lemonchiffon" align="center" border="1">
             <tr>
                 <td>
                     Godiste:

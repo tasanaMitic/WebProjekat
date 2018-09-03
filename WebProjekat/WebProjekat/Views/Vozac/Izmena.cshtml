@@ -1,4 +1,4 @@
-﻿@model WebProjekat.Models.Dispecer
+﻿@model WebProjekat.Models.Vozac
 @{
     ViewBag.Title = "Izmena";
 }
@@ -9,8 +9,8 @@
 
 <html>
 <body>
-    <form action="/Dispecer/IzmeniPodatke">
-        <table border="1" style="background-color:cornsilk" align="center">
+    <form action="/Vozac/IzmeniPodatke">
+        <table border="1" style="background-color:lemonchiffon" align="center">
             <tr>
                 <td colspan="2" align="center">UNESITE PODATKE:</td>
             </tr>
@@ -72,10 +72,11 @@
                     <input type="submit" value="Sačuvaj" />
                 </td>
             </tr>
+
         </table>
     </form>
 
-    <form action="/Dispecer/Index">
+    <form action="/Vozac/Index">
         <table align="center">
             <tr>
                 <td colspan="2" align="center">
@@ -84,6 +85,6 @@
             </tr>
         </table>
     </form>
-
 </body>
 </html>
+

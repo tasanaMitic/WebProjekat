@@ -1,0 +1,15 @@
+﻿@model WebProjekat.Models.Vozac
+@{
+    ViewBag.Title = "UspesnaLokacija";
+}
+
+<html>
+<body>
+    <h2>Trenutna lokacija vozača sa korisničkim imenom @Model.KorisnickoIme je uspesno promenjena.</h2>
+    <h2>Sada je: @Model.Lokacija.Adresa.Ulica @Model.Lokacija.Adresa.Broj, @Model.Lokacija.Adresa.NaseljenoMesto.</h2>
+    <form action="/Vozac/Index">
+        <input type="submit" value="Nazad" />
+    </form>
+</body>
+</html>
+

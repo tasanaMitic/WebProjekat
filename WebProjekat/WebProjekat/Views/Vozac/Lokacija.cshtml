@@ -1,0 +1,57 @@
+﻿@model WebProjekat.Models.Vozac
+@{
+    ViewBag.Title = "Lokacija";
+}
+
+<div style="text-align:center">
+    <h2>Izmena podataka o trenutnoj lokaciji</h2>
+</div>
+
+<html>
+<body>
+    <form action="/Vozac/IzmeniLokaciju">
+        <table style="background-color:lemonchiffon" border="1" align="center">
+            <tr>
+                <td colspan="2" align="center">UNESITE PODATKE:</td>
+            </tr>
+
+            <tr>
+                <td>Ulica:</td>
+                <td><input type="text" value="@Model.Lokacija.Adresa.Ulica" name="ulica" /></td>
+            </tr>
+
+            <tr>
+                <td>Broj:</td>
+                <td><input type="text" value="@Model.Lokacija.Adresa.Broj" name="broj" /></td>
+            </tr>
+
+            <tr>
+                <td>Mesto:</td>
+                <td><input type="text" value="@Model.Lokacija.Adresa.NaseljenoMesto" name="mesto" /></td>
+            </tr>
+
+            <tr>
+                <td>Pozivni broj mesta:</td>
+                <td><input type="text" value="@Model.Lokacija.Adresa.PozivniBrojMesta" name="pozivniBroj" /></td>
+            </tr>
+
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="hidden" value="@Model.KorisnickoIme" name="vozac" />
+                    <input type="submit" value="Sačuvaj" />
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <form action="/Vozac/Index">
+        <table align="center">
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Nazad" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

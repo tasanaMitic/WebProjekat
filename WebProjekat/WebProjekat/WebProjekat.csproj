@@ -158,6 +158,7 @@
     <Compile Include="Controllers\DispecerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PrijavaController.cs" />
+    <Compile Include="Controllers\VozacController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -220,7 +221,7 @@
     <Content Include="Views\Prijava\PrijavaNeuspesna.cshtml" />
     <Content Include="Views\Shared\PrikazMusterije.cshtml" />
     <Content Include="Views\Prijava\KorisnikNePostoji.cshtml" />
-    <Content Include="Views\Prijava\Prijava.cshtml" />
+    <Content Include="Views\Shared\Prijava.cshtml" />
     <Content Include="Views\Prijava\RegistracijaPonovo.cshtml" />
     <Content Include="Views\Shared\PrikazVozaca.cshtml" />
     <Content Include="Views\Shared\PrikazDispecera.cshtml" />
@@ -232,6 +233,12 @@
     <Content Include="Views\Dispecer\DispecerPostoji.cshtml" />
     <Content Include="Views\Dispecer\MusterijaPostoji.cshtml" />
     <Content Include="Views\Dispecer\UspesnoVoznja.cshtml" />
+    <Content Include="Views\Vozac\Izmena.cshtml" />
+    <Content Include="Views\Dispecer\VozacPonovo.cshtml" />
+    <Content Include="Views\Dispecer\VoznjaPonovo.cshtml" />
+    <Content Include="Views\Vozac\Lokacija.cshtml" />
+    <Content Include="Views\Vozac\LokacijaPonovo.cshtml" />
+    <Content Include="Views\Vozac\UspesnaLokacija.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

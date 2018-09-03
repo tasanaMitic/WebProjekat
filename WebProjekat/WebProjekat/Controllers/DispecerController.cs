@@ -17,6 +17,19 @@ namespace WebProjekat.Controllers
             return View("PrikazDispecera", dispecer);
         }
 
+        public ActionResult Odjava()
+        {
+            foreach(Dispecer d in Korisnici.ListaDispecera)
+            {
+                if(d == HttpContext.Application["Dispecer"])
+                {
+                    d.Prijavljen = false;
+                    HttpContext.Application["Dispecer"] = null;
+                }
+            }
+            return View("Prijava");
+        }
+
         public ActionResult Izmena()
         {
             Dispecer dispecer = (Dispecer)Session["korisnik"];
@@ -74,6 +87,10 @@ namespace WebProjekat.Controllers
 
         public ActionResult VozacNapravi(string ime, string prezime, string pol, string korisnickoIme, string lozinka,string jmbg, string brojTelefona, string email, string ulica, string broj, string mesto,string pozivniBroj, string godiste, string registracija, string taxi, string tipVozila)
         {
+            if (ime == "" || prezime == "" || korisnickoIme == "" || lozinka == "" || jmbg == "" || brojTelefona == "" || email == "" || ulica == "" || broj == "" || mesto == "" || pozivniBroj == "" || godiste == "" || registracija == "" || taxi == "" || tipVozila == "")
+            {
+                return View("VozacPonovo");
+            }
             Pol p = Pol.MUSKI;
 
             if(pol == "MUSKI")
@@ -150,6 +167,11 @@ namespace WebProjekat.Controllers
 
         public ActionResult VoznjaNapravi(string ulica, string broj, string mesto, string pozivniBroj, string tipVozila, string slobodanVozac, string dispecer)
         {
+            if(ulica == "" || broj == "" || mesto == "" || pozivniBroj == "" || slobodanVozac == "" || dispecer == "")
+            {
+                return View("VoznjaPonovo");
+            }
+
             Adresa adresa = new Adresa(ulica, broj, mesto, pozivniBroj);
             Lokacija lokacija = new Lokacija("3", "4", adresa);
 
@@ -215,10 +237,10 @@ namespace WebProjekat.Controllers
             return View("UspesnoVoznja", voznja);
         }
 
-        public ActionResult VoznjaObradi()
+       /* public ActionResult VoznjaObradi()
         {
             return View("VoznjaObradi");
-        }
+        }*/
 
     }
 }
