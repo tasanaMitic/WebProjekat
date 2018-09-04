@@ -33,10 +33,13 @@
             <td><label>@Model.TipAutomobila</label></td>
         </tr>
 
+        @if (Model.Dispecer != null)
+        {
         <tr>
             <td>Dispečer:</td>
             <td><label>@Model.Dispecer.KorisnickoIme</label></td>
         </tr>
+        }
 
         @if (Model.Vozac != null)
         {

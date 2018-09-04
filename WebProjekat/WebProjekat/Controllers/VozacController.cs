@@ -257,6 +257,7 @@ namespace WebProjekat.Controllers
                     voznja.Vozac = v;
                     voznja.Vozac.Zauzet = true;
                     voznja.StatusVoznje = Models.Enums.StatusVoznje.PRIHVACENA;
+                    voznja.Dispecer = null;
                     voznja.Vozac.ListaVoznji.Add(voznja);
                 }
             }
