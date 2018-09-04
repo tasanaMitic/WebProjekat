@@ -188,6 +188,7 @@ namespace WebProjekat.Controllers
             voznja.Odrediste = lokacija;
             voznja.Iznos = iznos;
             voznja.Vozac.Zauzet = false;
+            voznja.Vozac.SortiraneVoznje = voznja.Vozac.ListaVoznji;
 
             return View("PrikazVoznje", voznja);
         }
@@ -237,6 +238,7 @@ namespace WebProjekat.Controllers
 
             voznja.Komentar = kom;
             voznja.Vozac.Zauzet = false;
+            voznja.Vozac.SortiraneVoznje = voznja.Vozac.ListaVoznji;
 
             Korisnici.ListaSvihVoznji[i] = voznja;
 
@@ -268,7 +270,7 @@ namespace WebProjekat.Controllers
             return View("UspesnoPreuzetaVoznja", voznja);
         }
 
-        public ActionResult Tabela(string filter, string sort, string vozac)
+        public ActionResult Tabela(string filter, string sort, string vozac, string odDatum, string doDatum, string odOcena, string doOcena, string odCena, string doCena)
         {
             Vozac vo = new Vozac();
             WebProjekat.Models.Enums.StatusVoznje statusVoznje = Models.Enums.StatusVoznje.FORMIRANA;

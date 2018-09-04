@@ -122,6 +122,68 @@
                 </tr>
 
                 <tr>
+                    <td align="center" colspan="2">Pretraži po datumu porudžbine:</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Od:</label>
+                        <select name="odDatum">
+                            <option value="prazno" selected="selected"></option>
+                            @foreach (WebProjekat.Models.Voznja v in Model.ListaVoznji)
+                {
+                    <option>@v.DatumVremePorudzbine</option>
+    }
+                        </select>
+                    </td>
+                    <td>
+                        <label>Do:</label>
+                        <select name="doDatum">
+                            <option value="prazno" selected="selected"></option>
+                            @foreach (WebProjekat.Models.Voznja v in Model.ListaVoznji)
+                {
+                    <option>@v.DatumVremePorudzbine</option>
+    }
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="center" colspan="2">Pretraži po oceni:</td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <label>Od:</label>
+                        <select name="odOcena">
+                            <option value="NEOCENJEN" selected="selected">0</option>
+                            <option value="VRLOLOSE">1</option>
+                            <option value="LOSE">2</option>
+                            <option value="DOBRO">3</option>
+                            <option value="VRLODOBRO">4</option>
+                            <option value="ODLICNO">5</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label>Do:</label>
+                        <select name="doOcena">
+                            <option value="ODLICNO" selected="selected">5</option>
+                            <option value="VRLODOBRO">4</option>
+                            <option value="DOBRO">3</option>
+                            <option value="LOSE">2</option>
+                            <option value="VRLOLOSE">1</option>
+                            <option value="NEOCENJEN">0</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="center" colspan="2">Pretraži po ceni:</td>
+                </tr>
+                <tr>
+                    <td><label>Od:</label><input type="text" name="odCena" /></td>
+                    <td><label>Do:</label><input type="text" name="doCena" /></td>
+                </tr>
+
+                <tr>
                     <td colspan="2" align="right">
                         <input type="hidden" name="vozac" value="@Model.KorisnickoIme" />
                         <input type="submit" value="Primeni" />

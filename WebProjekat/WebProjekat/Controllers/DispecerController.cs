@@ -289,7 +289,7 @@ namespace WebProjekat.Controllers
             return View("PrikazVoznje", voznja);
         }
 
-        public ActionResult Tabela(string filter,string sort, string dispecer)
+        public ActionResult Tabela(string filter,string sort, string dispecer, string odDatum, string doDatum, string odOcena, string doOcena, string odCena, string doCena, string ime, string prezime)
         {
             Dispecer di = new Dispecer();
             WebProjekat.Models.Enums.StatusVoznje statusVoznje = Models.Enums.StatusVoznje.FORMIRANA;
@@ -338,6 +338,14 @@ namespace WebProjekat.Controllers
                 case "SVE":
                     di.SortiraneVoznje = di.ListaVoznji;
                     break;
+            }
+
+            foreach(Voznja v in di.ListaVoznji)
+            {
+                if(v.DatumVremePorudzbine.ToString() == odDatum)
+                {
+                    //string datum = v.DatumVremePorudzbine.ToString();
+                }
             }
 
             return View("PrikazDispecera", di);

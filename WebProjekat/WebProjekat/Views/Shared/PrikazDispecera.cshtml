@@ -67,8 +67,9 @@
 
     @if (Model.ListaVoznji.Count > 0)
     {
+        <h2>Odredite kriterijume pretrage</h2>
     <form action="/Dispecer/Tabela">
-        <table>
+        <table border="0">
             <tr>
                 <td>Filtriraj po statusu voznje:</td>
                 <td>
@@ -82,6 +83,7 @@
                     </select>
                 </td>
             </tr>
+
             <tr>
                 <td>Sortiraj po:</td>
                 <td>
@@ -94,7 +96,96 @@
             </tr>
 
             <tr>
-                <td colspan="2" align="right">
+                <td align="center" colspan="2">Pretraži po datumu porudžbine:</td>                
+            </tr>
+            <tr>                
+                <td>
+                    <label>Od:</label>
+                    <select name="odDatum">
+                       <option value="prazno" selected ="selected"></option>
+                        @foreach(WebProjekat.Models.Voznja v in Model.ListaVoznji)
+                        {
+                            <option>@v.DatumVremePorudzbine</option>
+                        }
+                    </select>
+               </td>
+                <td>
+                    <label>Do:</label>
+                    <select name="doDatum">
+                        <option value="prazno" selected="selected"></option>
+                        @foreach (WebProjekat.Models.Voznja v in Model.ListaVoznji)
+                        {
+                            <option>@v.DatumVremePorudzbine</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center" colspan="2">Pretraži po oceni:</td>                
+            </tr>
+            <tr>                
+                <td align="right">
+                    <label>Od:</label>
+                    <select name="odOcena">
+                        <option value="NEOCENJEN" selected="selected">0</option>
+                        <option value="VRLOLOSE">1</option>
+                        <option value="LOSE">2</option>
+                        <option value="DOBRO">3</option>
+                        <option value="VRLODOBRO">4</option>
+                        <option value="ODLICNO">5</option>
+                    </select>
+               </td>
+                <td>
+                    <label>Do:</label>
+                    <select name="doOcena">
+                        <option value="ODLICNO" selected="selected">5</option>
+                        <option value="VRLODOBRO">4</option>
+                        <option value="DOBRO">3</option>
+                        <option value="LOSE">2</option>
+                        <option value="VRLOLOSE">1</option>
+                        <option value="NEOCENJEN">0</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center" colspan="2">Pretraži po ceni:</td>                
+            </tr>
+            <tr>                
+                <td><label>Od:</label><input type="text" name="odCena"/></td>
+                <td><label>Do:</label><input type="text" name="doCena" /></td>
+            </tr>
+
+            <tr>
+                <td align="center" colspan="2">Pretraži po imenu i/ili prezimenu vozača:</td>
+            </tr>
+            <tr>                
+                <td align="right">
+                    <label>Ime:</label>
+                    <select name="ime">
+                       <option value="prazno" selected ="selected"></option>
+                        @foreach(WebProjekat.Models.Vozac v in WebProjekat.Models.Korisnici.ListaVozaca)
+                        {
+                            <option>@v.Ime</option>
+                        }
+                    </select>
+               </td>
+                <td>
+                    <label>Prezime:</label>
+                    <select name="prezime">
+                        <option value="prazno" selected="selected"></option>
+                        @foreach (WebProjekat.Models.Vozac v in WebProjekat.Models.Korisnici.ListaVozaca)
+                        {
+                            <option>@v.Prezime</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            
+
+            <tr>
+                <td colspan="2" align="center">
                     <input type="hidden" name="dispecer" value="@Model.KorisnickoIme" />
                     <input type="submit" value="Primeni" />
                 </td>
