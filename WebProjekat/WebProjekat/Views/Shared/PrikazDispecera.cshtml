@@ -58,11 +58,6 @@
                 </form>
             </td>
             <td>
-                <form action="/Dispecer/VoznjaObradi">
-                    <input type="submit" value="Obradi vožnju" />
-                </form>
-            </td>
-            <td>
                 <form action="/Dispecer/Odjava">
                     <input type="submit" value="Odjavi se" />
                 </form>
@@ -110,6 +105,21 @@
                         </form>
                     </td>
                 </tr>
+                    if (v.StatusVoznje != WebProjekat.Models.Enums.StatusVoznje.NEUSPESNA)
+                    {
+                        if (v.StatusVoznje != WebProjekat.Models.Enums.StatusVoznje.USPESNA)
+                        {
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <form action="/Dispecer/VoznjaObrada">
+                                        <input type="hidden" name="dispecer" value="@Model.KorisnickoIme" />
+                                        <input type="hidden" name="index" value="@i" />
+                                        <input type="submit" value="Obradi vožnju" />
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }                
         }
         </table>
     }

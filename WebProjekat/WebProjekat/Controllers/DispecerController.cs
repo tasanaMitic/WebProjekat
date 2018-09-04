@@ -164,9 +164,9 @@ namespace WebProjekat.Controllers
             return View("Voznja", dispecer);
         }
 
-        public ActionResult VoznjaNapravi(string ulica, string broj, string mesto, string pozivniBroj, string tipVozila, string slobodanVozac, string dispecer)
+        public ActionResult VoznjaNapravi(string ulica, string broj, string mesto, string pozivniBroj, string tipVozila, string dispecer)
         {
-            if (ulica == "" || broj == "" || mesto == "" || pozivniBroj == "" || slobodanVozac == "" || dispecer == "")
+            if (ulica == "" || broj == "" || mesto == "" || pozivniBroj == "" || dispecer == "")
             {
                 return View("VoznjaPonovo");
             }
@@ -201,10 +201,42 @@ namespace WebProjekat.Controllers
 
             voznja.TipAutomobila = tip;
 
-            Vozac vozac = new Vozac();
-            foreach (Vozac v in Korisnici.ListaVozaca)
+            voznja.StatusVoznje = Models.Enums.StatusVoznje.FORMIRANA;
+
+            d.ListaVoznji.Add(voznja);
+
+            Korisnici.ListaSvihVoznji.Add(voznja);           
+
+            return View("UspesnoVoznja", voznja);
+        }
+
+        public ActionResult VoznjaObrada(string dispecer, string index)
+        {
+            Voznja voznja = new Voznja();
+            int i = Int32.Parse(index);
+
+            foreach (Dispecer d in Korisnici.ListaDispecera)
             {
-                if (v.KorisnickoIme == slobodanVozac)
+                if(d.KorisnickoIme == dispecer)
+                {
+                    voznja = d.ListaVoznji[i - 1];
+                }
+            }
+
+            return View("VoznjaObradi", voznja);
+        }
+
+        public ActionResult VoznjaObradjena(string slobodanVozac, string index)
+        {
+            Voznja voznja = new Voznja();
+            Vozac vozac = new Vozac();
+            int i = Int32.Parse(index);
+
+            voznja = Korisnici.ListaSvihVoznji[i];
+
+            foreach(Vozac v in Korisnici.ListaVozaca)
+            {
+                if(v.KorisnickoIme == slobodanVozac)
                 {
                     v.Zauzet = true;
                     vozac = v;
@@ -212,28 +244,19 @@ namespace WebProjekat.Controllers
             }
 
             voznja.Vozac = vozac;
-            voznja.StatusVoznje = Models.Enums.StatusVoznje.KREIRANA;
+            voznja.StatusVoznje = Models.Enums.StatusVoznje.OBRADJENA;
 
-            d.ListaVoznji.Add(voznja);
+            Korisnici.ListaSvihVoznji[i] = voznja;
 
-           /* foreach (Vozac v in Korisnici.ListaVozaca)
+            foreach (Vozac v in Korisnici.ListaVozaca)
             {
                 if (v.KorisnickoIme == slobodanVozac)
                 {
                     v.ListaVoznji.Add(voznja);
                 }
-            }*/
-            Korisnici.ListaSvihVoznji.Add(voznja);
-
-            foreach (Korisnik k in Korisnici.ListaKorisnika)
-            {
-                if (k.KorisnickoIme == slobodanVozac)
-                {
-                    k.ListaVoznji.Add(voznja);
-                }
             }
 
-            return View("UspesnoVoznja", voznja);
+            return View("UspesnoObradjenaVoznja", voznja);
         }
 
         public ActionResult VoznjaInfo(string dispecer, string index)
@@ -256,20 +279,12 @@ namespace WebProjekat.Controllers
             Voznja voznja = new Voznja();
             int i = Int32.Parse(index);
 
-            foreach(Voznja v in Korisnici.ListaSvihVoznji)
-            {
-                if(Korisnici.ListaSvihVoznji[i-1] == v)
-                {
-                    voznja = v;
-                }
-            }
+            voznja = Korisnici.ListaSvihVoznji[i - 1];
+
             return View("PrikazVoznje", voznja);
         }
 
-       /* public ActionResult VoznjaObradi()
-        {
-            return View("VoznjaObradi");
-        }*/
+
 
     }
 }

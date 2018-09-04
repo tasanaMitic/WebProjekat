@@ -247,6 +247,9 @@
     <Content Include="Views\Vozac\UspesnaVoznja.cshtml" />
     <Content Include="Views\Vozac\NeuspesnaVoznja.cshtml" />
     <Content Include="Views\Vozac\VoznjaPonovo.cshtml" />
+    <Content Include="Views\Dispecer\VoznjaObradi.cshtml" />
+    <Content Include="Views\Dispecer\UspesnoObradjenaVoznja.cshtml" />
+    <Content Include="Views\Vozac\UspesnoPreuzetaVoznja.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

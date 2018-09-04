@@ -45,20 +45,6 @@
                     </select>
                 </td>
             </tr>
-            <tr>
-                <td>Slobodni vozači:</td>
-                <td>
-                    <select name="slobodanVozac">
-                        @foreach (WebProjekat.Models.Vozac v in WebProjekat.Models.Korisnici.ListaVozaca)
-                        {
-                            if (v.Zauzet == false)
-                            {
-                                <option value="@v.KorisnickoIme">@v.KorisnickoIme</option>
-                            }
-                        }
-                    </select>
-                </td>
-            </tr>
 
             <tr>
                 <td colspan="2" align="center">

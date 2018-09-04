@@ -236,8 +236,34 @@ namespace WebProjekat.Controllers
             kom.VoznjaKomentara = voznja;
 
             voznja.Komentar = kom;
+            voznja.Vozac.Zauzet = false;
+
+            Korisnici.ListaSvihVoznji[i] = voznja;
 
             return View("PrikazVoznje", voznja);
+        }
+
+        public ActionResult VoznjaPreuzmi(string index, string vozac)
+        {
+            Voznja voznja = new Voznja();
+            int i = Int32.Parse(index);
+
+            voznja = Korisnici.ListaSvihVoznji[i - 1];
+
+            foreach(Vozac v in Korisnici.ListaVozaca)
+            {
+                if(v.KorisnickoIme == vozac)
+                {
+                    voznja.Vozac = v;
+                    voznja.Vozac.Zauzet = true;
+                    voznja.StatusVoznje = Models.Enums.StatusVoznje.PRIHVACENA;
+                    voznja.Vozac.ListaVoznji.Add(voznja);
+                }
+            }
+
+            Korisnici.ListaSvihVoznji[i - 1] = voznja;
+
+            return View("UspesnoPreuzetaVoznja", voznja);
         }
     }
 }

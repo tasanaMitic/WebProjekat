@@ -1,0 +1,57 @@
+﻿@model WebProjekat.Models.Voznja
+@{
+    ViewBag.Title = "VoznjaObradi";
+}
+
+@{int i = 0;
+    foreach (WebProjekat.Models.Voznja v in WebProjekat.Models.Korisnici.ListaSvihVoznji)
+    {
+        if (v == Model)
+        {
+            i = WebProjekat.Models.Korisnici.ListaSvihVoznji.IndexOf(v);
+        }
+    }
+}
+
+<h2>Odaberite vozača za vožnju na lokaciju: @Model.LokacijaNaKojuTaxiDolazi.Adresa.Ulica @Model.LokacijaNaKojuTaxiDolazi.Adresa.Broj, @Model.LokacijaNaKojuTaxiDolazi.Adresa.NaseljenoMesto</h2>
+
+<html>
+<body>
+    <form action="/Dispecer/VoznjaObradjena">
+        <table align="center">
+            <tr>
+                <td>Slobodni vozači:</td>
+                <td>
+                    <select name="slobodanVozac">
+                        @foreach (WebProjekat.Models.Vozac v in WebProjekat.Models.Korisnici.ListaVozaca)
+                        {
+                            if (v.Zauzet == false)
+                            {
+                                <option value="@v.KorisnickoIme">@v.KorisnickoIme</option>
+                            }
+                        }
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center" colspan="2">
+                    <input type="hidden" name="index" value="@i" />
+                    <input type="submit" value="Sačuvaj" />
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <table align="center">
+        <tr>
+            <td>
+                <form action="/Dispecer/Index">
+                    <input type="submit" value="Nazad" />
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+

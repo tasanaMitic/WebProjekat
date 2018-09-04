@@ -38,10 +38,13 @@
             <td><label>@Model.Dispecer.KorisnickoIme</label></td>
         </tr>
 
+        @if (Model.Vozac != null)
+        {
         <tr>
             <td>Vozač:</td>
             <td><label>@Model.Vozac.KorisnickoIme</label></td>
         </tr>
+        }
 
         @if (Model.Musterija != null)
         {

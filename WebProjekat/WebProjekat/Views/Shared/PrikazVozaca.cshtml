@@ -162,9 +162,9 @@
 
             @foreach (WebProjekat.Models.Voznja v in WebProjekat.Models.Korisnici.ListaSvihVoznji)
             {
-                if (v.StatusVoznje == WebProjekat.Models.Enums.StatusVoznje.KREIRANA)
+                if (v.StatusVoznje == WebProjekat.Models.Enums.StatusVoznje.FORMIRANA)
                 {
-                    int i = Model.ListaVoznji.IndexOf(v) + 1;
+                    int i = WebProjekat.Models.Korisnici.ListaSvihVoznji.IndexOf(v) + 1;
 
                     <tr>
                         <td colspan="2" align="center">VOŽNJA @i.ToString()</td>
@@ -190,6 +190,16 @@
                             <form action="/Vozac/SveVoznjeInfo">
                                 <input type="hidden" name="index" value="@i" />
                                 <input type="submit" value="Prikaži sve informacije" />
+                            </form>
+                        </td>
+                     </tr>
+
+                     <tr>
+                        <td colspan="2" align="center">
+                            <form action="/Vozac/VoznjaPreuzmi">
+                                <input type="hidden" name="index" value="@i" />
+                                <input type="hidden" name="vozac" value="@Model.KorisnickoIme" />
+                                <input type="submit" value="Preuzmi vožnju" />
                             </form>
                         </td>
                     </tr>
