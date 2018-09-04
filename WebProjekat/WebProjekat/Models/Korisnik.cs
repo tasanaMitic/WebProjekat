@@ -18,10 +18,13 @@ namespace WebProjekat.Models
         public Uloga Uloga { get; set; }
         public List<Voznja> ListaVoznji { get; set; }
         public bool Prijavljen { get; set; }
+        public Models.Enums.StatusVoznje Filter { get; set; }
+        public List<Voznja> SortiraneVoznje { get; set; }
 
         public Korisnik()
         {
             ListaVoznji = new List<Voznja>();
+            SortiraneVoznje = new List<Voznja>();
         }
 
         public Korisnik(string korisnickoIme, string lozinka, string ime, string prezime, Pol pol, string jmbg, string kontaktTelefon, string email, Uloga uloga)
@@ -37,6 +40,8 @@ namespace WebProjekat.Models
             Uloga = uloga;
             ListaVoznji = new List<Voznja>();
             Prijavljen = false;
+            Filter = Enums.StatusVoznje.NEMA;
+            SortiraneVoznje = new List<Voznja>();
         }
     }
 }

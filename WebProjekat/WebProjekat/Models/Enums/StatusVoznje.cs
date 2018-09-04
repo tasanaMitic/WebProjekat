@@ -7,6 +7,6 @@ namespace WebProjekat.Models.Enums
 {
     public enum StatusVoznje
     {
-        KREIRANA, FORMIRANA, OBRADJENA, PRIHVACENA, OTKAZANA, NEUSPESNA, USPESNA
+        KREIRANA, FORMIRANA, OBRADJENA, PRIHVACENA, OTKAZANA, NEUSPESNA, USPESNA, NEMA
     }
 }

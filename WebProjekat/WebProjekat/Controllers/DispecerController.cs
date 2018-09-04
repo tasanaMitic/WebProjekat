@@ -62,7 +62,6 @@ namespace WebProjekat.Controllers
                     d.KontaktTelefon = brojTelefona;
                     d.Email = email;
                     dispecer = d;
-                    break;
                 }
             }
 
@@ -173,9 +172,13 @@ namespace WebProjekat.Controllers
 
             Adresa adresa = new Adresa(ulica, broj, mesto, pozivniBroj);
             Lokacija lokacija = new Lokacija("3", "4", adresa);
+            Komentar komentar = new Komentar();
+
+            komentar.Ocena = Models.Enums.Ocena.NEOCENJEN;
 
             Voznja voznja = new Voznja();
             voznja.DatumVremePorudzbine = DateTime.Now;
+            voznja.Komentar = komentar;
 
             Dispecer d = new Dispecer();
             foreach (Dispecer di in Korisnici.ListaDispecera)
@@ -204,6 +207,7 @@ namespace WebProjekat.Controllers
             voznja.StatusVoznje = Models.Enums.StatusVoznje.FORMIRANA;
 
             d.ListaVoznji.Add(voznja);
+            d.SortiraneVoznje = d.ListaVoznji;
 
             Korisnici.ListaSvihVoznji.Add(voznja);           
 
@@ -253,6 +257,7 @@ namespace WebProjekat.Controllers
                 if (v.KorisnickoIme == slobodanVozac)
                 {
                     v.ListaVoznji.Add(voznja);
+                    v.SortiraneVoznje = v.ListaVoznji;
                 }
             }
 
@@ -284,7 +289,58 @@ namespace WebProjekat.Controllers
             return View("PrikazVoznje", voznja);
         }
 
+        public ActionResult Tabela(string filter,string sort, string dispecer)
+        {
+            Dispecer di = new Dispecer();
+            WebProjekat.Models.Enums.StatusVoznje statusVoznje = Models.Enums.StatusVoznje.FORMIRANA;
 
+            foreach(Dispecer d in Korisnici.ListaDispecera)
+            {
+                if(d.KorisnickoIme == dispecer)
+                {
+                    di = d;
+                }
+            }
 
+            switch(filter)
+            {
+                case "FORMIRANA":
+                    statusVoznje = Models.Enums.StatusVoznje.FORMIRANA;
+                    break;
+                case "OBRADJENA":
+                    statusVoznje = Models.Enums.StatusVoznje.OBRADJENA;
+                    break;
+                case "PRIHVACENA":
+                    statusVoznje = Models.Enums.StatusVoznje.PRIHVACENA;
+                    break;
+                case "NEUSPESNA":
+                    statusVoznje = Models.Enums.StatusVoznje.NEUSPESNA;
+                    break;
+                case "USPESNA":
+                    statusVoznje = Models.Enums.StatusVoznje.USPESNA;
+                    break;
+                case "SVE":
+                    statusVoznje = Models.Enums.StatusVoznje.NEMA;
+                    break;
+            }
+
+            di.Filter = statusVoznje;
+            di.SortiraneVoznje = di.ListaVoznji;
+
+            switch(sort)
+            {
+                case "DATUM":
+                    di.SortiraneVoznje = di.ListaVoznji.OrderByDescending(v => v.DatumVremePorudzbine).ToList();
+                    break;
+                case "OCENA":
+                    di.SortiraneVoznje = di.ListaVoznji.OrderByDescending(v => v.Komentar.Ocena).ToList();
+                    break;
+                case "SVE":
+                    di.SortiraneVoznje = di.ListaVoznji;
+                    break;
+            }
+
+            return View("PrikazDispecera", di);
+        }
     }
 }

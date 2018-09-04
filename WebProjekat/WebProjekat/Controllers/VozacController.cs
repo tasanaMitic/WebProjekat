@@ -259,12 +259,67 @@ namespace WebProjekat.Controllers
                     voznja.StatusVoznje = Models.Enums.StatusVoznje.PRIHVACENA;
                     voznja.Dispecer = null;
                     voznja.Vozac.ListaVoznji.Add(voznja);
+                    voznja.Vozac.SortiraneVoznje = voznja.Vozac.ListaVoznji;
                 }
             }
 
             Korisnici.ListaSvihVoznji[i - 1] = voznja;
 
             return View("UspesnoPreuzetaVoznja", voznja);
+        }
+
+        public ActionResult Tabela(string filter, string sort, string vozac)
+        {
+            Vozac vo = new Vozac();
+            WebProjekat.Models.Enums.StatusVoznje statusVoznje = Models.Enums.StatusVoznje.FORMIRANA;
+
+            foreach (Vozac v in Korisnici.ListaVozaca)
+            {
+                if (v.KorisnickoIme == vozac)
+                {
+                    vo = v;
+                }
+            }
+
+            switch (filter)
+            {
+                case "FORMIRANA":
+                    statusVoznje = Models.Enums.StatusVoznje.FORMIRANA;
+                    break;
+                case "OBRADJENA":
+                    statusVoznje = Models.Enums.StatusVoznje.OBRADJENA;
+                    break;
+                case "PRIHVACENA":
+                    statusVoznje = Models.Enums.StatusVoznje.PRIHVACENA;
+                    break;
+                case "NEUSPESNA":
+                    statusVoznje = Models.Enums.StatusVoznje.NEUSPESNA;
+                    break;
+                case "USPESNA":
+                    statusVoznje = Models.Enums.StatusVoznje.USPESNA;
+                    break;
+                case "SVE":
+                    statusVoznje = Models.Enums.StatusVoznje.NEMA;
+                    break;
+            }
+
+            vo.Filter = statusVoznje;
+            vo.SortiraneVoznje = vo.ListaVoznji;
+
+            switch (sort)
+            {
+                case "DATUM":
+                    vo.SortiraneVoznje = vo.ListaVoznji.OrderByDescending(v => v.DatumVremePorudzbine).ToList();
+                    break;
+                case "OCENA":
+                    vo.SortiraneVoznje = vo.ListaVoznji.OrderByDescending(v => v.Komentar.Ocena).ToList();
+                    break;
+                case "SVE":
+                    vo.SortiraneVoznje = vo.ListaVoznji;
+                    break;
+            }
+
+            return View("PrikazVozaca", vo);
         }
     }
 }

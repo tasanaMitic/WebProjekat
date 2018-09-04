@@ -65,9 +65,43 @@
         </tr>
     </table>
 
-    <table>
+    @if (Model.ListaVoznji.Count > 0)
+    {
+    <form action="/Dispecer/Tabela">
+        <table>
+            <tr>
+                <td>Filtriraj po statusu voznje:</td>
+                <td>
+                    <select name="filter">
+                        <option value="SVE"> SVE VOŽNJE</option>
+                        <option value="FORMIRANA">FORMIRANE</option>
+                        <option value="OBRADJENA">OBRAĐENE</option>
+                        <option value="PRIHVACENA">PRIHVAĆENE</option>
+                        <option value="NEUSPESNA">NEUSPEŠNE</option>
+                        <option value="USPESNA">USPEŠNE</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Sortiraj po:</td>
+                <td>
+                    <select name="sort">
+                        <option value="SVE">BEZ SORTIRANJA</option>
+                        <option value="DATUM">DATUMU</option>
+                        <option value="OCENA">OCENI</option>
+                    </select>
+                </td>
+            </tr>
 
-    </table>
+            <tr>
+                <td colspan="2" align="right">
+                    <input type="hidden" name="dispecer" value="@Model.KorisnickoIme" />
+                    <input type="submit" value="Primeni" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    }
 
 
     @if (Model.ListaVoznji.Count > 0)
@@ -77,10 +111,12 @@
         </div>
 
         <table border="1" style="background-color:cornsilk">
-
-            @foreach (WebProjekat.Models.Voznja v in @Model.ListaVoznji)
+            @foreach (WebProjekat.Models.Voznja v in Model.SortiraneVoznje)
             {
-                int i = @Model.ListaVoznji.IndexOf(v) + 1;
+                if (v.StatusVoznje == Model.Filter || Model.Filter == WebProjekat.Models.Enums.StatusVoznje.NEMA)
+                {
+
+                    int i = @Model.ListaVoznji.IndexOf(v) + 1;
 
                 <tr>
                     <td colspan="2" align="center">VOŽNJA @i.ToString()</td>
@@ -114,18 +150,20 @@
                     {
                         if (v.StatusVoznje != WebProjekat.Models.Enums.StatusVoznje.USPESNA)
                         {
-                            <tr>
-                                <td colspan="2" align="center">
-                                    <form action="/Dispecer/VoznjaObrada">
-                                        <input type="hidden" name="dispecer" value="@Model.KorisnickoIme" />
-                                        <input type="hidden" name="index" value="@i" />
-                                        <input type="submit" value="Obradi vožnju" />
-                                    </form>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <form action="/Dispecer/VoznjaObrada">
+                                    <input type="hidden" name="dispecer" value="@Model.KorisnickoIme" />
+                                    <input type="hidden" name="index" value="@i" />
+                                    <input type="submit" value="Obradi vožnju" />
+                                </form>
+                            </td>
+                        </tr>
                         }
-                    }                
-        }
+                    }
+                }
+
+            }
         </table>
     }
 
@@ -140,7 +178,8 @@
 
             @foreach (WebProjekat.Models.Voznja v in WebProjekat.Models.Korisnici.ListaSvihVoznji)
             {
-                int i = Model.ListaVoznji.IndexOf(v) + 1;
+
+                    int i = Model.ListaVoznji.IndexOf(v) + 1;
 
                 <tr>
                     <td colspan="2" align="center">VOŽNJA @i.ToString()</td>
@@ -169,6 +208,7 @@
                         </form>
                     </td>
                 </tr>
+                
             }
         </table>
     }

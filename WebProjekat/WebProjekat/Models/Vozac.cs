@@ -22,6 +22,7 @@ namespace WebProjekat.Models
             Automobil = automobil;
             Lokacija = lokacija;
             ListaVoznji = new List<Voznja>();
+            SortiraneVoznje = new List<Voznja>();
         }
 
         public Vozac(string korisnickoIme, string lozinka, string ime, string prezime, Pol pol, string jmbg, string kontaktTelefon, string email, Uloga uloga,bool zauzet, string ulica, string broj, string mesto, string pozivniBroj) : base(korisnickoIme, lozinka, ime, prezime, pol, jmbg, kontaktTelefon, email, uloga)
@@ -37,6 +38,7 @@ namespace WebProjekat.Models
             Uloga = uloga;
             Zauzet = zauzet;
             ListaVoznji = new List<Voznja>();
+            SortiraneVoznje = new List<Voznja>();
 
             Adresa adresa = new Adresa();
             adresa.Ulica = ulica;
