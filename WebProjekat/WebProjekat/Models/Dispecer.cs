@@ -5,7 +5,6 @@ using System.Web;
 
 namespace WebProjekat.Models
 {
-    [Serializable]
     public class Dispecer : Korisnik
     {
         public Dispecer()
@@ -13,7 +12,7 @@ namespace WebProjekat.Models
             ListaVoznji = new List<Voznja>();
         }
 
-        public Dispecer(string korisnickoIme, string lozinka, string ime, string prezime, Pol pol, string jmbg, string kontaktTelefon, string email, Uloga uloga) : base(korisnickoIme, lozinka, ime, prezime, pol, jmbg, kontaktTelefon, email, uloga)
+        public Dispecer(string korisnickoIme, string lozinka, string ime, string prezime, Pol pol, string jmbg, string kontaktTelefon, string email) : base(korisnickoIme, lozinka, ime, prezime, pol, jmbg, kontaktTelefon, email)
         {
             KorisnickoIme = korisnickoIme;
             Lozinka = lozinka;
@@ -23,8 +22,9 @@ namespace WebProjekat.Models
             Jmbg = jmbg;
             KontaktTelefon = kontaktTelefon;
             Email = email;
-            Uloga = uloga;
+            Uloga = Uloga.DISPECER;
             ListaVoznji = new List<Voznja>();
+            SortiraneVoznje = ListaVoznji;
             Prijavljen = false;
         }
     }

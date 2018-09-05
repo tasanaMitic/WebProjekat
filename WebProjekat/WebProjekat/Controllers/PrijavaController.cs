@@ -97,6 +97,7 @@ namespace WebProjekat.Controllers
                 else if (v.KorisnickoIme == korisnickoIme && v.Lozinka == lozinka)
                 {
                     v.Prijavljen = true;
+                    v.SortiraneVoznje = v.ListaVoznji;
                     Session["korisnik"] = v;
                     return View("PrikazVozaca", v);
                 }
@@ -144,7 +145,7 @@ namespace WebProjekat.Controllers
                 p = Pol.ZENSKI;
             }
 
-            Musterija musterija = new Musterija(korisnickoIme, lozinka, ime, prezime, p, jmbg, brojTelefona, email, Uloga.MUSTERIJA);
+            Musterija musterija = new Musterija(korisnickoIme, lozinka, ime, prezime, p, jmbg, brojTelefona, email);
 
             if(Korisnici.ListaMusterija != null)
             {

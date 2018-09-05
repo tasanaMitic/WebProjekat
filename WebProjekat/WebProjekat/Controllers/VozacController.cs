@@ -80,6 +80,7 @@ namespace WebProjekat.Controllers
                 }
             }
 
+            Korisnici.UpisVozaca();
             return View("PrikazVozaca", vozac);
         }
 
@@ -163,11 +164,13 @@ namespace WebProjekat.Controllers
             if(statusVoznje == "NEUSPESNA")
             {
                 Korisnici.ListaSvihVoznji[i].StatusVoznje = Models.Enums.StatusVoznje.NEUSPESNA;
+                Korisnici.UpisVoznje();
                 return View("NeuspesnaVoznja", Korisnici.ListaSvihVoznji[i]);
             }
             else
             {
                 Korisnici.ListaSvihVoznji[i].StatusVoznje = Models.Enums.StatusVoznje.USPESNA;
+                Korisnici.UpisVoznje();
                 return View("UspesnaVoznja", Korisnici.ListaSvihVoznji[i]);
             }         
         }
@@ -229,6 +232,7 @@ namespace WebProjekat.Controllers
             voznja.Vozac.SortiraneVoznje = voznja.Vozac.ListaVoznji;
 
             Korisnici.ListaSvihVoznji[i] = voznja;
+            Korisnici.UpisVoznje();
 
             return View("PrikazVoznje", voznja);
         }
@@ -282,6 +286,7 @@ namespace WebProjekat.Controllers
             voznja.Vozac.SortiraneVoznje = voznja.Vozac.ListaVoznji;
 
             Korisnici.ListaSvihVoznji[i] = voznja;
+            Korisnici.UpisVoznje();
 
             return View("PrikazVoznje", Korisnici.ListaSvihVoznji[i]);
         }
@@ -297,13 +302,11 @@ namespace WebProjekat.Controllers
                     Korisnici.ListaSvihVoznji[i - 1].Vozac = v;
                     Korisnici.ListaSvihVoznji[i - 1].Vozac.Zauzet = true;
                     Korisnici.ListaSvihVoznji[i - 1].StatusVoznje = Models.Enums.StatusVoznje.PRIHVACENA;
-                    Korisnici.ListaSvihVoznji[i - 1].Dispecer = null;
+                    Korisnici.ListaSvihVoznji[i - 1].Dispecer = new Dispecer("/", "/", "/", "/", Pol.MUSKI, "/", "/", "/");
                     Korisnici.ListaSvihVoznji[i - 1].Vozac.ListaVoznji.Add(Korisnici.ListaSvihVoznji[i - 1]);
                     Korisnici.ListaSvihVoznji[i - 1].Vozac.SortiraneVoznje = Korisnici.ListaSvihVoznji[i - 1].Vozac.ListaVoznji;
 
-                    v.Zauzet = true;
-                    v.ListaVoznji.Add(Korisnici.ListaSvihVoznji[i - 1]);
-                    v.SortiraneVoznje = v.ListaVoznji;
+                    Korisnici.UpisVoznje();
                 }
             }
 
@@ -380,11 +383,7 @@ namespace WebProjekat.Controllers
                 {
                     if (v.DatumVremePorudzbine.CompareTo(datumOd) < 0)
                     {
-                        if (izbaciti.Contains(v))
-                        {
-
-                        }
-                        else
+                        if (!izbaciti.Contains(v))
                         {
                             izbaciti.Add(v);
                         }
@@ -409,11 +408,7 @@ namespace WebProjekat.Controllers
                 {
                     if (v.DatumVremePorudzbine.CompareTo(datumDo) > 0)
                     {
-                        if (izbaciti.Contains(v))
-                        {
-
-                        }
-                        else
+                        if (!izbaciti.Contains(v))
                         {
                             izbaciti.Add(v);
                         }
@@ -473,11 +468,7 @@ namespace WebProjekat.Controllers
             {
                 if (v.Komentar.Ocena < ocenaOd)
                 {
-                    if (izbaciti.Contains(v))
-                    {
-
-                    }
-                    else
+                    if (!izbaciti.Contains(v))
                     {
                         izbaciti.Add(v);
                     }
@@ -485,11 +476,7 @@ namespace WebProjekat.Controllers
 
                 if (v.Komentar.Ocena > ocenaDo)
                 {
-                    if (izbaciti.Contains(v))
-                    {
-
-                    }
-                    else
+                    if (!izbaciti.Contains(v))
                     {
                         izbaciti.Add(v);
                     }
@@ -503,11 +490,7 @@ namespace WebProjekat.Controllers
                 {
                     if (v.Iznos < Int32.Parse(odCena))
                     {
-                        if (izbaciti.Contains(v))
-                        {
-
-                        }
-                        else
+                        if (!izbaciti.Contains(v))
                         {
                             izbaciti.Add(v);
                         }
@@ -518,11 +501,7 @@ namespace WebProjekat.Controllers
                 {
                     if (v.Iznos > Int32.Parse(doCena))
                     {
-                        if (izbaciti.Contains(v))
-                        {
-
-                        }
-                        else
+                        if (!izbaciti.Contains(v))
                         {
                             izbaciti.Add(v);
                         }

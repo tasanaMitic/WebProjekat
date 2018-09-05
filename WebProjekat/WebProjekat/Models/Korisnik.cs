@@ -27,7 +27,7 @@ namespace WebProjekat.Models
             SortiraneVoznje = new List<Voznja>();
         }
 
-        public Korisnik(string korisnickoIme, string lozinka, string ime, string prezime, Pol pol, string jmbg, string kontaktTelefon, string email, Uloga uloga)
+        public Korisnik(string korisnickoIme, string lozinka, string ime, string prezime, Pol pol, string jmbg, string kontaktTelefon, string email)
         {
             KorisnickoIme = korisnickoIme;
             Lozinka = lozinka;
@@ -37,7 +37,6 @@ namespace WebProjekat.Models
             Jmbg = jmbg;
             KontaktTelefon = kontaktTelefon;
             Email = email;
-            Uloga = uloga;
             ListaVoznji = new List<Voznja>();
             Prijavljen = false;
             Filter = Enums.StatusVoznje.NEMA;

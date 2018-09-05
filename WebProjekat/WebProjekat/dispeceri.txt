@@ -1,1 +1,2 @@
-taske;juki;Tasana;Mitic;ZENSKI;05049958851845;0638357972;taske@gmail.com;Dispecerjulisnik;cackalica;Nikola;Jurisic;MUSKI;24119968895148;062241165;julis@gmail.com;Dispecer
+taske;juki;Tasana;Mitic;ZENSKI;05049958851845;0638357972;taske@gmail.com
+julisnik;cackalica;Nikola;Jurisic;MUSKI;24119968895148;062241165;julis@gmail.com
