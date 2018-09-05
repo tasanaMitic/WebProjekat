@@ -179,6 +179,7 @@ namespace WebProjekat.Controllers
             Voznja voznja = new Voznja();
             voznja.DatumVremePorudzbine = DateTime.Now;
             voznja.Komentar = komentar;
+            voznja.Iznos = 0;
 
             Dispecer d = new Dispecer();
             foreach (Dispecer di in Korisnici.ListaDispecera)
@@ -289,20 +290,21 @@ namespace WebProjekat.Controllers
             return View("PrikazVoznje", voznja);
         }
 
-        public ActionResult Tabela(string filter,string sort, string dispecer, string odDatum, string doDatum, string odOcena, string doOcena, string odCena, string doCena, string ime, string prezime)
+        public ActionResult Tabela(string filter, string sort, string dispecer, string odDatum, string doDatum, string odOcena, string doOcena, string odCena, string doCena, string ime, string prezime)
         {
             Dispecer di = new Dispecer();
             WebProjekat.Models.Enums.StatusVoznje statusVoznje = Models.Enums.StatusVoznje.FORMIRANA;
 
-            foreach(Dispecer d in Korisnici.ListaDispecera)
+            foreach (Dispecer d in Korisnici.ListaDispecera)
             {
-                if(d.KorisnickoIme == dispecer)
+                if (d.KorisnickoIme == dispecer)
                 {
                     di = d;
                 }
             }
 
-            switch(filter)
+            //FILTRIRANJE
+            switch (filter)
             {
                 case "FORMIRANA":
                     statusVoznje = Models.Enums.StatusVoznje.FORMIRANA;
@@ -327,7 +329,8 @@ namespace WebProjekat.Controllers
             di.Filter = statusVoznje;
             di.SortiraneVoznje = di.ListaVoznji;
 
-            switch(sort)
+            //SORTIRANJE
+            switch (sort)
             {
                 case "DATUM":
                     di.SortiraneVoznje = di.ListaVoznji.OrderByDescending(v => v.DatumVremePorudzbine).ToList();
@@ -340,11 +343,247 @@ namespace WebProjekat.Controllers
                     break;
             }
 
-            foreach(Voznja v in di.ListaVoznji)
+            //PRETRAGA
+            //OD DATUMA
+            List<Voznja> izbaciti = new List<Voznja>();
+
+            if (odDatum != "prazno")
             {
-                if(v.DatumVremePorudzbine.ToString() == odDatum)
+                DateTime datumOd = new DateTime();
+
+                foreach (Voznja v in di.SortiraneVoznje)
                 {
-                    //string datum = v.DatumVremePorudzbine.ToString();
+                    if (v.DatumVremePorudzbine.ToString() == odDatum)
+                    {
+                        datumOd = v.DatumVremePorudzbine;
+                    }
+                }
+
+                foreach (Voznja v in di.SortiraneVoznje)
+                {
+                    if (v.DatumVremePorudzbine.CompareTo(datumOd) < 0)
+                    {
+                        if (izbaciti.Contains(v))
+                        {
+
+                        }
+                        else
+                        {
+                            izbaciti.Add(v);
+                        }
+                    }
+                }
+            }
+
+            //DO DATUM
+            if (doDatum != "prazno")
+            {
+                DateTime datumDo = new DateTime();
+
+                foreach (Voznja v in di.SortiraneVoznje)
+                {
+                    if (v.DatumVremePorudzbine.ToString() == doDatum)
+                    {
+                        datumDo = v.DatumVremePorudzbine;
+                    }
+                }
+
+                foreach (Voznja v in di.SortiraneVoznje)
+                {
+                    if (v.DatumVremePorudzbine.CompareTo(datumDo) > 0)
+                    {
+                        if (izbaciti.Contains(v))
+                        {
+
+                        }
+                        else
+                        {
+                            izbaciti.Add(v);
+                        }
+                    }
+                }
+            }
+
+            //OCENA
+            WebProjekat.Models.Enums.Ocena ocenaOd = Models.Enums.Ocena.NEOCENJEN;
+            WebProjekat.Models.Enums.Ocena ocenaDo = Models.Enums.Ocena.ODLICNO;
+
+            switch (odOcena)
+            {
+                case "NEOCENJEN":
+                    ocenaOd = Models.Enums.Ocena.NEOCENJEN;
+                    break;
+                case "VRLOLOSE":
+                    ocenaOd = Models.Enums.Ocena.VRLOLOSE;
+                    break;
+                case "LOSE":
+                    ocenaOd = Models.Enums.Ocena.LOSE;
+                    break;
+                case "DOBRO":
+                    ocenaOd = Models.Enums.Ocena.DOBRO;
+                    break;
+                case "VRLODOBRO":
+                    ocenaOd = Models.Enums.Ocena.VRLODOBRO;
+                    break;
+                case "ODLICNO":
+                    ocenaOd = Models.Enums.Ocena.ODLICNO;
+                    break;
+            }
+
+            switch (doOcena)
+            {
+                case "NEOCENJEN":
+                    ocenaDo = Models.Enums.Ocena.NEOCENJEN;
+                    break;
+                case "VRLOLOSE":
+                    ocenaDo = Models.Enums.Ocena.VRLOLOSE;
+                    break;
+                case "LOSE":
+                    ocenaDo = Models.Enums.Ocena.LOSE;
+                    break;
+                case "DOBRO":
+                    ocenaDo = Models.Enums.Ocena.DOBRO;
+                    break;
+                case "VRLODOBRO":
+                    ocenaDo = Models.Enums.Ocena.VRLODOBRO;
+                    break;
+                case "ODLICNO":
+                    ocenaDo = Models.Enums.Ocena.ODLICNO;
+                    break;
+            }
+
+            foreach (Voznja v in di.SortiraneVoznje)
+            {
+                if (v.Komentar.Ocena < ocenaOd)
+                {
+                    if (izbaciti.Contains(v))
+                    {
+
+                    }
+                    else
+                    {
+                        izbaciti.Add(v);
+                    }
+                }
+
+                if (v.Komentar.Ocena > ocenaDo)
+                {
+                    if (izbaciti.Contains(v))
+                    {
+
+                    }
+                    else
+                    {
+                        izbaciti.Add(v);
+                    }
+                }
+            }
+
+            //CENA
+            foreach (Voznja v in di.SortiraneVoznje)
+            {
+                if (odCena != "")
+                {
+                    if (v.Iznos < Int32.Parse(odCena))
+                    {
+                        if (izbaciti.Contains(v))
+                        {
+
+                        }
+                        else
+                        {
+                            izbaciti.Add(v);
+                        }
+                    }
+                }
+
+                if (doCena != "")
+                {
+                    if (v.Iznos > Int32.Parse(doCena))
+                    {
+                        if (izbaciti.Contains(v))
+                        {
+
+                        }
+                        else
+                        {
+                            izbaciti.Add(v);
+                        }
+                    }
+                }
+            }
+
+            //IME
+            if(ime != "prazno")
+            {
+                foreach(Voznja v in di.SortiraneVoznje)
+                {
+                    if (v.Vozac != null)
+                    {
+                        if (v.Vozac.Ime != ime)
+                        {
+                            if (izbaciti.Contains(v))
+                            {
+
+                            }
+                            else
+                            {
+                                izbaciti.Add(v);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (izbaciti.Contains(v))
+                        {
+
+                        }
+                        else
+                        {
+                            izbaciti.Add(v);
+                        }
+                    }
+                }
+            }
+
+            //PREZIME
+            if (prezime != "prazno")
+            {
+                foreach(Voznja v in di.SortiraneVoznje)
+                {
+                    if (v.Vozac != null)
+                    {
+                        if (v.Vozac.Prezime != prezime)
+                        {
+                            if (izbaciti.Contains(v))
+                            {
+
+                            }
+                            else
+                            {
+                                izbaciti.Add(v);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (izbaciti.Contains(v))
+                        {
+
+                        }
+                        else
+                        {
+                            izbaciti.Add(v);
+                        }
+                    }
+                }
+            }
+
+            foreach (Voznja v in izbaciti)
+            {
+                if (di.SortiraneVoznje.Contains(v))
+                {
+                    di.SortiraneVoznje = di.SortiraneVoznje.Except(izbaciti).ToList();
                 }
             }
 

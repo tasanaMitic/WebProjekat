@@ -33,10 +33,13 @@
             <td><label>@Model.TipAutomobila</label></td>
         </tr>
 
+        @if (Model.Dispecer != null)
+        {
         <tr>
             <td>Dispečer:</td>
             <td><label>@Model.Dispecer.KorisnickoIme</label></td>
         </tr>
+        }
 
         <tr>
             <td>Vozač:</td>
@@ -51,7 +54,7 @@
             </tr>
         }
 
-        @if (Model.Iznos != null)
+        @if (Model.Iznos != 0)
         {
             <tr>
                 <td>Iznos:</td>
@@ -74,6 +77,7 @@
                 <td>Korisničko ime:</td>
                 <td><label>@Model.Komentar.KorisnikKomentara.KorisnickoIme</label></td>
             </tr>
+            
 
             <tr>
                 <td>Ocena vožnje:</td>

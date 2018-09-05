@@ -15,7 +15,7 @@ namespace WebProjekat.Models
         public Lokacija Odrediste { get; set; }
         public Dispecer Dispecer { get; set; }
         public Vozac Vozac { get; set; }
-        public string Iznos { get; set; }
+        public int Iznos { get; set; }
         public Komentar Komentar { get; set; }
         public StatusVoznje StatusVoznje { get; set; }
 
@@ -24,7 +24,7 @@ namespace WebProjekat.Models
 
         }
 
-        public Voznja(DateTime datumVreme, Lokacija lokacija, TipAutomobila tipAutomobila, Musterija musterija, Lokacija odrediste, Dispecer dispecer, Vozac vozac, string iznos, Komentar komentar, StatusVoznje statusVoznje)
+        public Voznja(DateTime datumVreme, Lokacija lokacija, TipAutomobila tipAutomobila, Musterija musterija, Lokacija odrediste, Dispecer dispecer, Vozac vozac, int iznos, Komentar komentar, StatusVoznje statusVoznje)
         {
             DatumVremePorudzbine = datumVreme;
             LokacijaNaKojuTaxiDolazi = lokacija;

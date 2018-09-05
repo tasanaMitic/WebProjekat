@@ -66,6 +66,54 @@ namespace WebProjekat.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult LogIn(string korisnickoIme, string lozinka)
+        {
+            foreach (Musterija m in Korisnici.ListaMusterija)
+            {
+                if (m.KorisnickoIme == korisnickoIme && m.Lozinka != lozinka)
+                {
+                    return View("PrijavaNeuspesna");
+                }
+                else if (m.KorisnickoIme == korisnickoIme && m.Lozinka == lozinka)
+                {
+                    m.Prijavljen = true;
+                    Session["korisnik"] = m;
+                    return View("PrikazMusterije", m);
+                }
+            }
+
+            foreach (Vozac v in Korisnici.ListaVozaca)
+            {
+                if (v.KorisnickoIme == korisnickoIme && v.Lozinka != lozinka)
+                {
+                    return View("PrijavaNeuspesna");
+                }
+                else if (v.KorisnickoIme == korisnickoIme && v.Lozinka == lozinka)
+                {
+                    v.Prijavljen = true;
+                    Session["korisnik"] = v;
+                    return View("PrikazVozaca", v);
+                }
+            }
+
+            foreach (Dispecer d in Korisnici.ListaDispecera)
+            {
+                if (d.KorisnickoIme == korisnickoIme && d.Lozinka != lozinka)
+                {
+                    return View("PrijavaNeuspesna");
+                }
+                else if (d.KorisnickoIme == korisnickoIme && d.Lozinka == lozinka)
+                {
+                    d.Prijavljen = true;
+                    Session["korisnik"] = d;
+                    return View("PrikazDispecera", d);
+                }
+            }
+
+            return View("KorisnikNePostoji");
+        }
+
         public ActionResult Registracija()
         {
             return View("Registracija");
@@ -106,55 +154,7 @@ namespace WebProjekat.Controllers
             Korisnici.ListaMusterija.Add(musterija as Musterija);
 
             return View("Prijava");
-        }
-
-        [HttpPost]
-        public ActionResult LogIn(string korisnickoIme, string lozinka)
-        {
-            foreach(Musterija m in Korisnici.ListaMusterija)
-            {
-                if(m.KorisnickoIme == korisnickoIme && m.Lozinka != lozinka)
-                {
-                    return View("PrijavaNeuspesna");
-                }
-                else if(m.KorisnickoIme == korisnickoIme && m.Lozinka == lozinka)
-                {
-                    m.Prijavljen = true;
-                    Session["korisnik"] = m;
-                    return View("PrikazMusterije", m);
-                }
-            }
-
-            foreach (Vozac v in Korisnici.ListaVozaca)
-            {
-                if (v.KorisnickoIme == korisnickoIme && v.Lozinka != lozinka)
-                {
-                    return View("PrijavaNeuspesna");
-                }
-                else if (v.KorisnickoIme == korisnickoIme && v.Lozinka == lozinka)
-                {
-                    v.Prijavljen = true;
-                    Session["korisnik"] = v;
-                    return View("PrikazVozaca", v);
-                }
-            }
-
-            foreach (Dispecer d in Korisnici.ListaDispecera)
-            {
-                if (d.KorisnickoIme == korisnickoIme && d.Lozinka != lozinka)
-                {
-                    return View("PrijavaNeuspesna");
-                }
-                else if (d.KorisnickoIme == korisnickoIme && d.Lozinka == lozinka)
-                {
-                    d.Prijavljen = true;
-                    Session["korisnik"] = d;
-                    return View("PrikazDispecera", d);
-                }
-            }
-
-            return View("KorisnikNePostoji");
-        }
+        }        
     }
 
 }

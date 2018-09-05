@@ -577,7 +577,7 @@ namespace WebProjekat
                 k = new Komentar("bez opisa", kom, voznja, Ocena.NEOCENJEN, new Korisnik("nema", "nema", "nema", "nema", Pol.MUSKI, "0000", "nema", "nema", Uloga.DISPECER));
             }
 
-            voznja = new Voznja(date, poc, tip, musterija, kraj, dispecer, vozac, iznos, k, status);
+            voznja = new Voznja(date, poc, tip, musterija, kraj, dispecer, vozac, Int32.Parse(iznos), k, status);
 
             k.VoznjaKomentara = voznja;
             voznja.Komentar = k;

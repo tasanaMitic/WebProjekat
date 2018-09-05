@@ -172,7 +172,7 @@ namespace WebProjekat.Controllers
             }         
         }
 
-        public ActionResult UspesnaVoznja(string ulica, string broj, string mesto, string pozivniBroj, string iznos, string index)
+        public ActionResult UspesnaVoznja(string ulica, string broj, string mesto, string pozivniBroj, string iznos, string index, string ocena, string komentar)
         {
             int i = Int32.Parse(index);
             Voznja voznja = Korisnici.ListaSvihVoznji[i];
@@ -180,15 +180,53 @@ namespace WebProjekat.Controllers
             if (ulica == "" || broj == "" || mesto == "" || pozivniBroj == "" || iznos == "")
             {
                 return View("VoznjaPonovo", voznja);
-            }                     
+            }
+
+            Ocena o = Ocena.NEOCENJEN;
+            if (ocena == "NEOCENJEN")
+            {
+                o = Ocena.NEOCENJEN;
+            }
+            else if (ocena == "VRLOLOSE")
+            {
+                o = Ocena.VRLOLOSE;
+            }
+            else if (ocena == "LOSE")
+            {
+                o = Ocena.LOSE;
+            }
+            else if (ocena == "DOBRO")
+            {
+                o = Ocena.DOBRO;
+            }
+            else if (ocena == "VRLODOBRO")
+            {
+                o = Ocena.VRLODOBRO;
+            }
+            else if (ocena == "ODLICNO")
+            {
+                o = Ocena.ODLICNO;
+            }
 
             Adresa adresa = new Adresa(ulica, broj, mesto, pozivniBroj);
             Lokacija lokacija = new Lokacija("3", "4", adresa);
 
+            if(komentar == "")
+            {
+                voznja.Komentar.Opis = "Nema komentara";
+            }
+            else
+            {
+                voznja.Komentar.Opis = komentar;
+            }
+
             voznja.Odrediste = lokacija;
-            voznja.Iznos = iznos;
+            voznja.Iznos = Int32.Parse(iznos);
             voznja.Vozac.Zauzet = false;
-            voznja.Vozac.SortiraneVoznje = voznja.Vozac.ListaVoznji;
+            voznja.Komentar.KorisnikKomentara = voznja.Vozac;
+            voznja.Komentar.Ocena = o;
+            voznja.Komentar.DatumObjave = DateTime.Now;
+            voznja.Vozac.SortiraneVoznje = voznja.Vozac.ListaVoznji;           
 
             return View("PrikazVoznje", voznja);
         }
@@ -199,7 +237,7 @@ namespace WebProjekat.Controllers
             Voznja voznja = Korisnici.ListaSvihVoznji[i];
             Komentar kom = new Komentar();
 
-            if (ocena == "" || komentar == "")
+            if (komentar == "")
             {
                 return View("VoznjaPonovo", voznja);
             }
@@ -319,6 +357,184 @@ namespace WebProjekat.Controllers
                 case "SVE":
                     vo.SortiraneVoznje = vo.ListaVoznji;
                     break;
+            }
+
+            //PRETRAGA
+            //OD DATUMA
+            List<Voznja> izbaciti = new List<Voznja>();
+
+            if (odDatum != "prazno")
+            {
+                DateTime datumOd = new DateTime();
+
+                foreach (Voznja v in vo.SortiraneVoznje)
+                {
+                    if (v.DatumVremePorudzbine.ToString() == odDatum)
+                    {
+                        datumOd = v.DatumVremePorudzbine;
+                    }
+                }
+
+                foreach (Voznja v in vo.SortiraneVoznje)
+                {
+                    if (v.DatumVremePorudzbine.CompareTo(datumOd) < 0)
+                    {
+                        if (izbaciti.Contains(v))
+                        {
+
+                        }
+                        else
+                        {
+                            izbaciti.Add(v);
+                        }
+                    }
+                }
+            }
+
+            //DO DATUM
+            if (doDatum != "prazno")
+            {
+                DateTime datumDo = new DateTime();
+
+                foreach (Voznja v in vo.SortiraneVoznje)
+                {
+                    if (v.DatumVremePorudzbine.ToString() == doDatum)
+                    {
+                        datumDo = v.DatumVremePorudzbine;
+                    }
+                }
+
+                foreach (Voznja v in vo.SortiraneVoznje)
+                {
+                    if (v.DatumVremePorudzbine.CompareTo(datumDo) > 0)
+                    {
+                        if (izbaciti.Contains(v))
+                        {
+
+                        }
+                        else
+                        {
+                            izbaciti.Add(v);
+                        }
+                    }
+                }
+            }
+
+            //OCENA
+            WebProjekat.Models.Enums.Ocena ocenaOd = Models.Enums.Ocena.NEOCENJEN;
+            WebProjekat.Models.Enums.Ocena ocenaDo = Models.Enums.Ocena.ODLICNO;
+
+            switch (odOcena)
+            {
+                case "NEOCENJEN":
+                    ocenaOd = Models.Enums.Ocena.NEOCENJEN;
+                    break;
+                case "VRLOLOSE":
+                    ocenaOd = Models.Enums.Ocena.VRLOLOSE;
+                    break;
+                case "LOSE":
+                    ocenaOd = Models.Enums.Ocena.LOSE;
+                    break;
+                case "DOBRO":
+                    ocenaOd = Models.Enums.Ocena.DOBRO;
+                    break;
+                case "VRLODOBRO":
+                    ocenaOd = Models.Enums.Ocena.VRLODOBRO;
+                    break;
+                case "ODLICNO":
+                    ocenaOd = Models.Enums.Ocena.ODLICNO;
+                    break;
+            }
+
+            switch (doOcena)
+            {
+                case "NEOCENJEN":
+                    ocenaDo = Models.Enums.Ocena.NEOCENJEN;
+                    break;
+                case "VRLOLOSE":
+                    ocenaDo = Models.Enums.Ocena.VRLOLOSE;
+                    break;
+                case "LOSE":
+                    ocenaDo = Models.Enums.Ocena.LOSE;
+                    break;
+                case "DOBRO":
+                    ocenaDo = Models.Enums.Ocena.DOBRO;
+                    break;
+                case "VRLODOBRO":
+                    ocenaDo = Models.Enums.Ocena.VRLODOBRO;
+                    break;
+                case "ODLICNO":
+                    ocenaDo = Models.Enums.Ocena.ODLICNO;
+                    break;
+            }
+
+            foreach (Voznja v in vo.SortiraneVoznje)
+            {
+                if (v.Komentar.Ocena < ocenaOd)
+                {
+                    if (izbaciti.Contains(v))
+                    {
+
+                    }
+                    else
+                    {
+                        izbaciti.Add(v);
+                    }
+                }
+
+                if (v.Komentar.Ocena > ocenaDo)
+                {
+                    if (izbaciti.Contains(v))
+                    {
+
+                    }
+                    else
+                    {
+                        izbaciti.Add(v);
+                    }
+                }
+            }
+
+            //CENA
+            foreach (Voznja v in vo.SortiraneVoznje)
+            {
+                if (odCena != "")
+                {
+                    if (v.Iznos < Int32.Parse(odCena))
+                    {
+                        if (izbaciti.Contains(v))
+                        {
+
+                        }
+                        else
+                        {
+                            izbaciti.Add(v);
+                        }
+                    }
+                }
+
+                if (doCena != "")
+                {
+                    if (v.Iznos > Int32.Parse(doCena))
+                    {
+                        if (izbaciti.Contains(v))
+                        {
+
+                        }
+                        else
+                        {
+                            izbaciti.Add(v);
+                        }
+                    }
+                }
+            }
+
+            foreach (Voznja v in izbaciti)
+            {
+                if (vo.SortiraneVoznje.Contains(v))
+                {
+                    vo.SortiraneVoznje = vo.SortiraneVoznje.Except(izbaciti).ToList();
+                }
             }
 
             return View("PrikazVozaca", vo);

@@ -51,6 +51,25 @@
             </tr>
 
             <tr>
+                <td>Ocena:</td>
+                <td>
+                    <select name="ocena">
+                        <option value="NEOCENJEN" selected="selected">0</option>
+                        <option value="VRLOLOSE">1</option>
+                        <option value="LOSE">2</option>
+                        <option value="DOBRO">3</option>
+                        <option value="VRLODOBRO">4</option>
+                        <option value="ODLICNO">5</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Komentar:</td>
+                <td><textarea name="komentar" rows="5" cols="40"></textarea></td>
+            </tr>
+
+            <tr>
                 <td colspan="2" align="center">
                     <input type="hidden" name="index" value="@i" />
                     <input type="submit" value="Sačuvaj" />
