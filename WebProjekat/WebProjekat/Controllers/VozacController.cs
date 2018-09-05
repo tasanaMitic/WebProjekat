@@ -63,17 +63,20 @@ namespace WebProjekat.Controllers
                     v.KontaktTelefon = brojTelefona;
                     v.Email = email;
                     vozac = v;
-                    break;
                 }
             }
 
-            Korisnik korisnik = new Korisnik();
             foreach (Korisnik k in Korisnici.ListaKorisnika)
             {
                 if (k.KorisnickoIme == vozac.KorisnickoIme)
                 {
-                    korisnik = vozac;
-                    break;
+                    k.Ime = ime;
+                    k.Prezime = prezime;
+                    k.Pol = p;
+                    k.Lozinka = lozinka;
+                    k.Jmbg = jmbg;
+                    k.KontaktTelefon = brojTelefona;
+                    k.Email = email;
                 }
             }
 
@@ -95,26 +98,24 @@ namespace WebProjekat.Controllers
 
             Adresa adresa = new Adresa(ulica, broj, mesto, pozivniBroj);
             Lokacija lokacija = new Lokacija("3", "4", adresa);
+            Vozac vo = new Vozac();
 
-            Vozac v = new Vozac();
-
-            foreach (Vozac vo in Korisnici.ListaVozaca)
+            foreach (Vozac v in Korisnici.ListaVozaca)
             {
-                if (vo.KorisnickoIme == vozac)
+                if (v.KorisnickoIme == vozac)
                 {
-                    v = vo;
+                    v.Lokacija = lokacija;
+                    vo = v;
                 }
             }
 
-            v.Lokacija = lokacija;
-
-            return View("UspesnaLokacija", v);
+            return View("UspesnaLokacija", vo);
         }
 
         public ActionResult VoznjaInfo(string vozac, string index)
         {
-            Voznja voznja = new Voznja();
             int i = Int32.Parse(index);
+            Voznja voznja = new Voznja();
 
             foreach (Vozac v in Korisnici.ListaVozaca)
             {
@@ -159,16 +160,15 @@ namespace WebProjekat.Controllers
         public ActionResult StatusVoznjePromenjen(string statusVoznje, string index)
         {            
             int i = Int32.Parse(index);
-            Voznja voznja = Korisnici.ListaSvihVoznji[i];
             if(statusVoznje == "NEUSPESNA")
             {
-                voznja.StatusVoznje = Models.Enums.StatusVoznje.NEUSPESNA;
-                return View("NeuspesnaVoznja", voznja);
+                Korisnici.ListaSvihVoznji[i].StatusVoznje = Models.Enums.StatusVoznje.NEUSPESNA;
+                return View("NeuspesnaVoznja", Korisnici.ListaSvihVoznji[i]);
             }
             else
             {
-                voznja.StatusVoznje = Models.Enums.StatusVoznje.USPESNA;
-                return View("UspesnaVoznja", voznja);
+                Korisnici.ListaSvihVoznji[i].StatusVoznje = Models.Enums.StatusVoznje.USPESNA;
+                return View("UspesnaVoznja", Korisnici.ListaSvihVoznji[i]);
             }         
         }
 
@@ -226,7 +226,9 @@ namespace WebProjekat.Controllers
             voznja.Komentar.KorisnikKomentara = voznja.Vozac;
             voznja.Komentar.Ocena = o;
             voznja.Komentar.DatumObjave = DateTime.Now;
-            voznja.Vozac.SortiraneVoznje = voznja.Vozac.ListaVoznji;           
+            voznja.Vozac.SortiraneVoznje = voznja.Vozac.ListaVoznji;
+
+            Korisnici.ListaSvihVoznji[i] = voznja;
 
             return View("PrikazVoznje", voznja);
         }
@@ -234,8 +236,9 @@ namespace WebProjekat.Controllers
         public ActionResult NeuspesnaVoznja(string ocena, string komentar, string index)
         {
             int i = Int32.Parse(index);
-            Voznja voznja = Korisnici.ListaSvihVoznji[i];
+            Voznja voznja = new Voznja();
             Komentar kom = new Komentar();
+            voznja = Korisnici.ListaSvihVoznji[i];
 
             if (komentar == "")
             {
@@ -280,46 +283,37 @@ namespace WebProjekat.Controllers
 
             Korisnici.ListaSvihVoznji[i] = voznja;
 
-            return View("PrikazVoznje", voznja);
+            return View("PrikazVoznje", Korisnici.ListaSvihVoznji[i]);
         }
 
         public ActionResult VoznjaPreuzmi(string index, string vozac)
         {
-            Voznja voznja = new Voznja();
             int i = Int32.Parse(index);
-
-            voznja = Korisnici.ListaSvihVoznji[i - 1];
 
             foreach(Vozac v in Korisnici.ListaVozaca)
             {
                 if(v.KorisnickoIme == vozac)
                 {
-                    voznja.Vozac = v;
-                    voznja.Vozac.Zauzet = true;
-                    voznja.StatusVoznje = Models.Enums.StatusVoznje.PRIHVACENA;
-                    voznja.Dispecer = null;
-                    voznja.Vozac.ListaVoznji.Add(voznja);
-                    voznja.Vozac.SortiraneVoznje = voznja.Vozac.ListaVoznji;
+                    Korisnici.ListaSvihVoznji[i - 1].Vozac = v;
+                    Korisnici.ListaSvihVoznji[i - 1].Vozac.Zauzet = true;
+                    Korisnici.ListaSvihVoznji[i - 1].StatusVoznje = Models.Enums.StatusVoznje.PRIHVACENA;
+                    Korisnici.ListaSvihVoznji[i - 1].Dispecer = null;
+                    Korisnici.ListaSvihVoznji[i - 1].Vozac.ListaVoznji.Add(Korisnici.ListaSvihVoznji[i - 1]);
+                    Korisnici.ListaSvihVoznji[i - 1].Vozac.SortiraneVoznje = Korisnici.ListaSvihVoznji[i - 1].Vozac.ListaVoznji;
+
+                    v.Zauzet = true;
+                    v.ListaVoznji.Add(Korisnici.ListaSvihVoznji[i - 1]);
+                    v.SortiraneVoznje = v.ListaVoznji;
                 }
             }
 
-            Korisnici.ListaSvihVoznji[i - 1] = voznja;
-
-            return View("UspesnoPreuzetaVoznja", voznja);
+            return View("UspesnoPreuzetaVoznja", Korisnici.ListaSvihVoznji[i - 1]);
         }
 
         public ActionResult Tabela(string filter, string sort, string vozac, string odDatum, string doDatum, string odOcena, string doOcena, string odCena, string doCena)
         {
             Vozac vo = new Vozac();
             WebProjekat.Models.Enums.StatusVoznje statusVoznje = Models.Enums.StatusVoznje.FORMIRANA;
-
-            foreach (Vozac v in Korisnici.ListaVozaca)
-            {
-                if (v.KorisnickoIme == vozac)
-                {
-                    vo = v;
-                }
-            }
 
             switch (filter)
             {
@@ -343,8 +337,15 @@ namespace WebProjekat.Controllers
                     break;
             }
 
-            vo.Filter = statusVoznje;
-            vo.SortiraneVoznje = vo.ListaVoznji;
+            foreach (Vozac v in Korisnici.ListaVozaca)
+            {
+                if (v.KorisnickoIme == vozac)
+                {
+                    v.Filter = statusVoznje;
+                    v.SortiraneVoznje = v.ListaVoznji;
+                    vo = v;
+                }
+            }
 
             switch (sort)
             {

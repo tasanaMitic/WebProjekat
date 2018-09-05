@@ -73,11 +73,14 @@
                 <td colspan="2" align="center">Komentar:</td>
             </tr>
 
+            if (Model.Komentar.KorisnikKomentara != null)
+            {
             <tr>
                 <td>Korisničko ime:</td>
                 <td><label>@Model.Komentar.KorisnikKomentara.KorisnickoIme</label></td>
             </tr>
-            
+            }
+
 
             <tr>
                 <td>Ocena vožnje:</td>

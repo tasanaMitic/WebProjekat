@@ -36,21 +36,6 @@ namespace WebProjekat.Controllers
                     }
                 }
 
-
-                foreach (Musterija m in Korisnici.ListaMusterija)
-                {
-                    if(m.KorisnickoIme == korisnik.KorisnickoIme && m.Lozinka != korisnik.Lozinka)
-                    {
-                        ViewBag.Description = "Prijava je neuspesna. Lozinka nije ispravna!";
-                        return View("Prijava");
-                    }
-                    else if(m.KorisnickoIme == korisnik.KorisnickoIme && m.Lozinka == korisnik.Lozinka)
-                    {
-                        m.Prijavljen = true;
-                        return View("PrikazMusterije", m);
-                    }
-                }                
-
                 foreach (Vozac v in Korisnici.ListaVozaca)
                 {
                     if (v.KorisnickoIme == korisnik.KorisnickoIme && v.Lozinka != korisnik.Lozinka)
@@ -65,25 +50,40 @@ namespace WebProjekat.Controllers
                     }
                 }
 
-                return View("KorisnikNePostoji");
+                foreach (Musterija m in Korisnici.ListaMusterija)
+                {
+                    if(m.KorisnickoIme == korisnik.KorisnickoIme && m.Lozinka != korisnik.Lozinka)
+                    {
+                        ViewBag.Description = "Prijava je neuspesna. Lozinka nije ispravna!";
+                        return View("Prijava");
+                    }
+                    else if(m.KorisnickoIme == korisnik.KorisnickoIme && m.Lozinka == korisnik.Lozinka)
+                    {
+                        m.Prijavljen = true;
+                        return View("PrikazMusterije", m);
+                    }
+                }               
+
+                ViewBag.Description = "Ne postoji korisnik sa tim korisničkim imenom!";
+                return View("Prijava");
             }
         }
 
         [HttpPost]
         public ActionResult LogIn(string korisnickoIme, string lozinka)
         {
-            foreach (Musterija m in Korisnici.ListaMusterija)
+            foreach (Dispecer d in Korisnici.ListaDispecera)
             {
-                if (m.KorisnickoIme == korisnickoIme && m.Lozinka != lozinka)
+                if (d.KorisnickoIme == korisnickoIme && d.Lozinka != lozinka)
                 {
                     ViewBag.Description = "Prijava je neuspesna. Lozinka nije ispravna!";
                     return View("Prijava");
                 }
-                else if (m.KorisnickoIme == korisnickoIme && m.Lozinka == lozinka)
+                else if (d.KorisnickoIme == korisnickoIme && d.Lozinka == lozinka)
                 {
-                    m.Prijavljen = true;
-                    Session["korisnik"] = m;
-                    return View("PrikazMusterije", m);
+                    d.Prijavljen = true;
+                    Session["korisnik"] = d;
+                    return View("PrikazDispecera", d);
                 }
             }
 
@@ -102,22 +102,23 @@ namespace WebProjekat.Controllers
                 }
             }
 
-            foreach (Dispecer d in Korisnici.ListaDispecera)
+            foreach (Musterija m in Korisnici.ListaMusterija)
             {
-                if (d.KorisnickoIme == korisnickoIme && d.Lozinka != lozinka)
+                if (m.KorisnickoIme == korisnickoIme && m.Lozinka != lozinka)
                 {
                     ViewBag.Description = "Prijava je neuspesna. Lozinka nije ispravna!";
                     return View("Prijava");
                 }
-                else if (d.KorisnickoIme == korisnickoIme && d.Lozinka == lozinka)
+                else if (m.KorisnickoIme == korisnickoIme && m.Lozinka == lozinka)
                 {
-                    d.Prijavljen = true;
-                    Session["korisnik"] = d;
-                    return View("PrikazDispecera", d);
+                    m.Prijavljen = true;
+                    Session["korisnik"] = m;
+                    return View("PrikazMusterije", m);
                 }
             }
 
-            return View("KorisnikNePostoji");
+            ViewBag.Description = "Ne postoji korisnik sa tim korisničkim imenom!";
+            return View("Prijava");
         }
 
         public ActionResult Registracija()

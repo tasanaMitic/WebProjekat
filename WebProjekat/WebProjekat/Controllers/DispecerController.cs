@@ -35,7 +35,6 @@ namespace WebProjekat.Controllers
             return View("Izmena", dispecer);
         }
 
-
         public ActionResult IzmeniPodatke(string ime, string prezime, string pol, string korisnickoIme, string lozinka, string jmbg, string brojTelefona, string email)
         {
             Dispecer dispecer = new Dispecer();
@@ -64,14 +63,17 @@ namespace WebProjekat.Controllers
                     dispecer = d;
                 }
             }
-
-            Korisnik korisnik = new Korisnik();
             foreach (Korisnik k in Korisnici.ListaKorisnika)
             {
                 if (k.KorisnickoIme == dispecer.KorisnickoIme)
                 {
-                    korisnik = dispecer;
-                    break;
+                    k.Ime = ime;
+                    k.Prezime = prezime;
+                    k.Pol = p;
+                    k.Lozinka = lozinka;
+                    k.Jmbg = jmbg;
+                    k.KontaktTelefon = brojTelefona;
+                    k.Email = email;
                 }
             }
 
@@ -138,21 +140,20 @@ namespace WebProjekat.Controllers
                         return View("MusterijaPostoji");
                     }
                 }
+
+                foreach (Vozac v in Korisnici.ListaVozaca)
+                {
+                    if (v.KorisnickoIme == korisnickoIme)
+                    {
+                        return View("VozacPostoji");
+                    }
+                }
             }
             else
             {
                 Korisnici.ListaKorisnika.Add(vozac);
-            }
-
-            foreach (Vozac v in Korisnici.ListaVozaca)
-            {
-                if (v.KorisnickoIme == korisnickoIme)
-                {
-                    return View("VozacPostoji");
-                }
-            }
-
-            Korisnici.ListaVozaca.Add(vozac);
+                Korisnici.ListaVozaca.Add(vozac);
+            }       
 
             return View("UspesnoVozac", vozac);
         }
@@ -173,15 +174,9 @@ namespace WebProjekat.Controllers
             Adresa adresa = new Adresa(ulica, broj, mesto, pozivniBroj);
             Lokacija lokacija = new Lokacija("3", "4", adresa);
             Komentar komentar = new Komentar();
-
-            komentar.Ocena = Models.Enums.Ocena.NEOCENJEN;
-
             Voznja voznja = new Voznja();
-            voznja.DatumVremePorudzbine = DateTime.Now;
-            voznja.Komentar = komentar;
-            voznja.Iznos = 0;
-
             Dispecer d = new Dispecer();
+
             foreach (Dispecer di in Korisnici.ListaDispecera)
             {
                 if (di.KorisnickoIme == dispecer)
@@ -191,7 +186,6 @@ namespace WebProjekat.Controllers
             }
 
             voznja.Dispecer = d;
-            voznja.LokacijaNaKojuTaxiDolazi = lokacija;
 
             TipAutomobila tip = TipAutomobila.PUTNICKI;
             if (tipVozila == "PUTNICKI")
@@ -203,12 +197,24 @@ namespace WebProjekat.Controllers
                 tip = TipAutomobila.KOMBI;
             }
 
+            komentar.Ocena = Models.Enums.Ocena.NEOCENJEN;
+            komentar.Opis = "Nema komentara još uvek";
+            komentar.DatumObjave = DateTime.Now;
             voznja.TipAutomobila = tip;
-
+            voznja.DatumVremePorudzbine = DateTime.Now;
+            voznja.Komentar = komentar;
+            voznja.Iznos = 0;
+            voznja.LokacijaNaKojuTaxiDolazi = lokacija;    
             voznja.StatusVoznje = Models.Enums.StatusVoznje.FORMIRANA;
 
-            d.ListaVoznji.Add(voznja);
-            d.SortiraneVoznje = d.ListaVoznji;
+            foreach (Dispecer di in Korisnici.ListaDispecera)
+            {
+                if (di.KorisnickoIme == d.KorisnickoIme)
+                {
+                    di.ListaVoznji.Add(voznja);
+                    di.SortiraneVoznje = di.ListaVoznji;
+                }
+            }
 
             Korisnici.ListaSvihVoznji.Add(voznja);           
 
@@ -233,10 +239,9 @@ namespace WebProjekat.Controllers
 
         public ActionResult VoznjaObradjena(string slobodanVozac, string index)
         {
-            Voznja voznja = new Voznja();
-            Vozac vozac = new Vozac();
             int i = Int32.Parse(index);
-
+            Vozac vozac = new Vozac();
+            Voznja voznja = new Voznja();    
             voznja = Korisnici.ListaSvihVoznji[i];
 
             foreach(Vozac v in Korisnici.ListaVozaca)
@@ -249,9 +254,7 @@ namespace WebProjekat.Controllers
             }
 
             voznja.Vozac = vozac;
-            voznja.StatusVoznje = Models.Enums.StatusVoznje.OBRADJENA;
-
-            Korisnici.ListaSvihVoznji[i] = voznja;
+            voznja.StatusVoznje = Models.Enums.StatusVoznje.OBRADJENA;            
 
             foreach (Vozac v in Korisnici.ListaVozaca)
             {
@@ -262,13 +265,15 @@ namespace WebProjekat.Controllers
                 }
             }
 
+            Korisnici.ListaSvihVoznji[i] = voznja;
+
             return View("UspesnoObradjenaVoznja", voznja);
         }
 
         public ActionResult VoznjaInfo(string dispecer, string index)
         {
-            Voznja voznja = new Voznja();
             int i = Int32.Parse(index);
+            Voznja voznja = new Voznja();            
 
             foreach (Dispecer d in Korisnici.ListaDispecera)
             {
@@ -282,8 +287,8 @@ namespace WebProjekat.Controllers
 
         public ActionResult SveVoznjeInfo(string index)
         {
-            Voznja voznja = new Voznja();
             int i = Int32.Parse(index);
+            Voznja voznja = new Voznja();            
 
             voznja = Korisnici.ListaSvihVoznji[i - 1];
 
@@ -294,14 +299,6 @@ namespace WebProjekat.Controllers
         {
             Dispecer di = new Dispecer();
             WebProjekat.Models.Enums.StatusVoznje statusVoznje = Models.Enums.StatusVoznje.FORMIRANA;
-
-            foreach (Dispecer d in Korisnici.ListaDispecera)
-            {
-                if (d.KorisnickoIme == dispecer)
-                {
-                    di = d;
-                }
-            }
 
             //FILTRIRANJE
             switch (filter)
@@ -326,8 +323,15 @@ namespace WebProjekat.Controllers
                     break;
             }
 
-            di.Filter = statusVoznje;
-            di.SortiraneVoznje = di.ListaVoznji;
+            foreach (Dispecer d in Korisnici.ListaDispecera)
+            {
+                if (d.KorisnickoIme == dispecer)
+                {
+                    d.Filter = statusVoznje;
+                    d.SortiraneVoznje = d.ListaVoznji;
+                    di = d;
+                }
+            }       
 
             //SORTIRANJE
             switch (sort)
