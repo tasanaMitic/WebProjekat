@@ -26,7 +26,8 @@ namespace WebProjekat.Controllers
                 {
                     if (d.KorisnickoIme == korisnik.KorisnickoIme && d.Lozinka != korisnik.Lozinka)
                     {
-                        return View("PrijavaNeuspesna");
+                        ViewBag.Description = "Prijava je neuspesna. Lozinka nije ispravna!";
+                        return View("Prijava");
                     }
                     else if (d.KorisnickoIme == korisnik.KorisnickoIme && d.Lozinka == korisnik.Lozinka)
                     {
@@ -40,7 +41,8 @@ namespace WebProjekat.Controllers
                 {
                     if(m.KorisnickoIme == korisnik.KorisnickoIme && m.Lozinka != korisnik.Lozinka)
                     {
-                        return View("PrijavaNeuspesna");
+                        ViewBag.Description = "Prijava je neuspesna. Lozinka nije ispravna!";
+                        return View("Prijava");
                     }
                     else if(m.KorisnickoIme == korisnik.KorisnickoIme && m.Lozinka == korisnik.Lozinka)
                     {
@@ -53,7 +55,8 @@ namespace WebProjekat.Controllers
                 {
                     if (v.KorisnickoIme == korisnik.KorisnickoIme && v.Lozinka != korisnik.Lozinka)
                     {
-                        return View("PrijavaNeuspesna");
+                        ViewBag.Description = "Prijava je neuspesna. Lozinka nije ispravna!";
+                        return View("Prijava");
                     }
                     else if (v.KorisnickoIme == korisnik.KorisnickoIme && v.Lozinka == korisnik.Lozinka)
                     {
@@ -73,7 +76,8 @@ namespace WebProjekat.Controllers
             {
                 if (m.KorisnickoIme == korisnickoIme && m.Lozinka != lozinka)
                 {
-                    return View("PrijavaNeuspesna");
+                    ViewBag.Description = "Prijava je neuspesna. Lozinka nije ispravna!";
+                    return View("Prijava");
                 }
                 else if (m.KorisnickoIme == korisnickoIme && m.Lozinka == lozinka)
                 {
@@ -87,7 +91,8 @@ namespace WebProjekat.Controllers
             {
                 if (v.KorisnickoIme == korisnickoIme && v.Lozinka != lozinka)
                 {
-                    return View("PrijavaNeuspesna");
+                    ViewBag.Description = "Prijava je neuspesna. Lozinka nije ispravna!";
+                    return View("Prijava");
                 }
                 else if (v.KorisnickoIme == korisnickoIme && v.Lozinka == lozinka)
                 {
@@ -101,7 +106,8 @@ namespace WebProjekat.Controllers
             {
                 if (d.KorisnickoIme == korisnickoIme && d.Lozinka != lozinka)
                 {
-                    return View("PrijavaNeuspesna");
+                    ViewBag.Description = "Prijava je neuspesna. Lozinka nije ispravna!";
+                    return View("Prijava");
                 }
                 else if (d.KorisnickoIme == korisnickoIme && d.Lozinka == lozinka)
                 {

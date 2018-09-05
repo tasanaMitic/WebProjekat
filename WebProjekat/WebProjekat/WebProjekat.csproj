@@ -219,7 +219,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Prijava\Registracija.cshtml" />
     <Content Include="Views\Prijava\RegistracijaNeuspesna.cshtml" />
-    <Content Include="Views\Prijava\PrijavaNeuspesna.cshtml" />
     <Content Include="Views\Shared\PrikazMusterije.cshtml" />
     <Content Include="Views\Prijava\KorisnikNePostoji.cshtml" />
     <Content Include="Views\Shared\Prijava.cshtml" />
