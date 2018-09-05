@@ -66,7 +66,7 @@ namespace WebProjekat.Models
                     line += string.Format(v.KorisnickoIme + ";" + v.Lozinka + ";" + v.Ime + ";" + v.Prezime + ";" + v.Pol.ToString() + ";"
                         + v.Jmbg + ";" + v.KontaktTelefon + ";" + v.Email + ";" + v.Automobil.BrojTaxiVozila + ":" + v.Automobil.GodisteAutomobila + ":"
                         + v.Automobil.BrojRegistarskeOznake + ":" + v.Automobil.TipAutomobila.ToString() + ";" + v.Lokacija.Adresa.Ulica + ":"
-                        + v.Lokacija.Adresa.Broj + ":" + v.Lokacija.Adresa.NaseljenoMesto + ":" + v.Lokacija.Adresa.PozivniBrojMesta + ";" + v.Uloga.ToString() + "\n");
+                        + v.Lokacija.Adresa.Broj + ":" + v.Lokacija.Adresa.NaseljenoMesto + ":" + v.Lokacija.Adresa.PozivniBrojMesta + ";" + v.Uloga.ToString() + ";" + v.Zauzet.ToString() +  "\n");
                 }
 
                 fileRead.Close();
@@ -84,7 +84,7 @@ namespace WebProjekat.Models
                         line += string.Format(v.KorisnickoIme + ";" + v.Lozinka + ";" + v.Ime + ";" + v.Prezime + ";" + v.Pol.ToString() + ";"
                             + v.Jmbg + ";" + v.KontaktTelefon + ";" + v.Email + ";" + v.Automobil.BrojTaxiVozila + ":" + v.Automobil.GodisteAutomobila + ":"
                             + v.Automobil.BrojRegistarskeOznake + ":" + v.Automobil.TipAutomobila.ToString() + ";" + v.Lokacija.Adresa.Ulica + ":"
-                            + v.Lokacija.Adresa.Broj + ":" + v.Lokacija.Adresa.NaseljenoMesto + ":" + v.Lokacija.Adresa.PozivniBrojMesta + ";" + v.Uloga.ToString() + "\n");
+                            + v.Lokacija.Adresa.Broj + ":" + v.Lokacija.Adresa.NaseljenoMesto + ":" + v.Lokacija.Adresa.PozivniBrojMesta + ";" + v.Uloga.ToString() + ";" + v.Zauzet.ToString() + "\n");
                     }
 
                     StreamWriter fileWrite = new StreamWriter(@"C:\Users\Korisnik\Desktop\WebProjekat\WebProjekat\WebProjekat\vozaci.txt");

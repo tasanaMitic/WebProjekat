@@ -136,7 +136,18 @@ namespace WebProjekat
                     lokacija = polja[9].Split(':');
                     Lokacija lok = new Lokacija("2", "2", new Adresa(lokacija[0], lokacija[1], lokacija[2], lokacija[3]));
                     Vozac vozac = new Vozac(korisnik, auto, lok);
+                    if (polja[11] == "False")
+                    {
+                        vozac.Zauzet = false;
+                    }
+                    else
+                    {
+                        vozac.Zauzet = true;
+                    }
+
                     auto.Vozac = vozac;
+                    
+                    
 
                     if(!Korisnici.ListaVozaca.Contains(vozac))
                     {

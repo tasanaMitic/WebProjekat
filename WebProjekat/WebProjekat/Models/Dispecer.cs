@@ -23,6 +23,7 @@ namespace WebProjekat.Models
             KontaktTelefon = kontaktTelefon;
             Email = email;
             Uloga = Uloga.DISPECER;
+            this.Filter = Enums.StatusVoznje.NEMA;
             ListaVoznji = new List<Voznja>();
             SortiraneVoznje = ListaVoznji;
             Prijavljen = false;

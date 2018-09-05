@@ -225,13 +225,20 @@ namespace WebProjekat.Controllers
             else
             {
                 int index = 0;
+                bool dodata = false;
                 foreach (Voznja v in Korisnici.ListaSvihVoznji)
                 {
                     if (v.DatumVremePorudzbine.Equals(voznja.DatumVremePorudzbine))
                     {
                         index = Korisnici.ListaSvihVoznji.IndexOf(v);
                         Korisnici.ListaSvihVoznji[index] = voznja;
+                        dodata = true;
                     }
+                }
+
+                if (dodata == false)
+                {
+                    Korisnici.ListaSvihVoznji.Add(voznja);
                 }
             }            
 
@@ -294,6 +301,7 @@ namespace WebProjekat.Controllers
 
             Korisnici.ListaSvihVoznji[i] = voznja;
             Korisnici.UpisVoznje();
+            Korisnici.UpisVozaca();
 
             return View("UspesnoObradjenaVoznja", voznja);
         }

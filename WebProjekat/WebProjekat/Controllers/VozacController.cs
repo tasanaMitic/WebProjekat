@@ -233,6 +233,7 @@ namespace WebProjekat.Controllers
 
             Korisnici.ListaSvihVoznji[i] = voznja;
             Korisnici.UpisVoznje();
+            Korisnici.UpisKorisnika();
 
             return View("PrikazVoznje", voznja);
         }
@@ -287,6 +288,7 @@ namespace WebProjekat.Controllers
 
             Korisnici.ListaSvihVoznji[i] = voznja;
             Korisnici.UpisVoznje();
+            Korisnici.UpisKorisnika();
 
             return View("PrikazVoznje", Korisnici.ListaSvihVoznji[i]);
         }
@@ -307,6 +309,7 @@ namespace WebProjekat.Controllers
                     Korisnici.ListaSvihVoznji[i - 1].Vozac.SortiraneVoznje = Korisnici.ListaSvihVoznji[i - 1].Vozac.ListaVoznji;
 
                     Korisnici.UpisVoznje();
+                    Korisnici.UpisVozaca();
                 }
             }
 

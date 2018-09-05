@@ -270,7 +270,7 @@
             @foreach (WebProjekat.Models.Voznja v in WebProjekat.Models.Korisnici.ListaSvihVoznji)
             {
 
-                    int i = Model.ListaVoznji.IndexOf(v) + 1;
+                    int i = WebProjekat.Models.Korisnici.ListaSvihVoznji.IndexOf(v) + 1;
 
                 <tr>
                     <td colspan="2" align="center">VOŽNJA @i.ToString()</td>
