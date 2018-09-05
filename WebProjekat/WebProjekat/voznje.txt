@@ -1,7 +1,0 @@
-05.09.2018 10:28:39 AM;julisnik;0;Nema komentara još uvek;NEOCENJEN;05.09.2018 10:28:39 AM;Maksima Gorkog;95;Novi Sad;21000;/;/;/;/;OBRADJENA;PUTNICKI;peki
-05.09.2018 10:28:49 AM;/;600;komentar1
-;DOBRO;05.09.2018 10:45:09 AM;Brace Ribnikar;33;Novi Sad;21000;Mise Dimitrijevica;95;Novi Sad;21000;USPESNA;PUTNICKI;simbe
-05.09.2018 10:29:42 AM;taske;0;Nema komentara još uvek;NEOCENJEN;05.09.2018 10:29:42 AM;Gogoljeva;5;Novi Sad;21000;/;/;/;/;FORMIRANA;PUTNICKI;/
-05.09.2018 10:29:55 AM;taske;0;Nema komentara još uvek;NEOCENJEN;05.09.2018 10:29:55 AM;Mise Dimitrijevica;13;Novi Sad;21000;/;/;/;/;OBRADJENA;PUTNICKI;peki
-05.09.2018 10:30:30 AM;taske;0;Nema komentara još uvek;NEOCENJEN;05.09.2018 10:30:30 AM;Gogoljeva;24;Novi Sad;21000;/;/;/;/;FORMIRANA;PUTNICKI;/
-

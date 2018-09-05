@@ -159,7 +159,9 @@ namespace WebProjekat.Controllers
             }
 
             Korisnici.ListaKorisnika.Add(musterija);
-            Korisnici.ListaMusterija.Add(musterija as Musterija);
+            Korisnici.ListaMusterija.Add(musterija);
+            Korisnici.UpisKorisnika();
+
 
             return View("Prijava");
         }        

@@ -21,6 +21,7 @@ namespace WebProjekat.Models
             Jmbg = jmbg;
             KontaktTelefon = kontaktTelefon;
             Email = email;
+            this.Uloga = Uloga.MUSTERIJA;
             ListaVoznji = new List<Voznja>();
             Prijavljen = false;
         }

@@ -135,7 +135,6 @@ namespace WebProjekat.Models
                 fileWrite.WriteLine(line);
                 fileWrite.Close();
             }
-        }
-        
+        }        
     }
 }

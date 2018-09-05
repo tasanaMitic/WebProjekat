@@ -62,7 +62,6 @@ namespace WebProjekat.Controllers
                     m.KontaktTelefon = brojTelefona;
                     m.Email = email;
                     musterija = m;
-                    break;
                 }
             }
 
@@ -71,10 +70,16 @@ namespace WebProjekat.Controllers
             {
                 if (k.KorisnickoIme == musterija.KorisnickoIme)
                 {
-                    korisnik = musterija;
-                    break;
+                    k.Ime = musterija.Ime;
+                    k.Prezime = musterija.Prezime;
+                    k.Pol = musterija.Pol;
+                    k.Lozinka = musterija.Lozinka;
+                    k.Jmbg = musterija.Jmbg;
+                    k.KontaktTelefon = musterija.KontaktTelefon;
+                    k.Email = musterija.Email;
                 }
             }
+            Korisnici.UpisKorisnika();
 
             return View("PrikazMusterije", musterija);
 
