@@ -235,34 +235,32 @@ namespace WebProjekat
             if (Korisnici.ListaDispecera.Count() == 0)
             {
                 string line;
-                // Read the file and display it line by line.  
                 System.IO.StreamReader file = new System.IO.StreamReader(@"C:\Users\Korisnik\Desktop\WebProjekat\WebProjekat\WebProjekat\dispeceri.txt");
 
                 while ((line = file.ReadLine()) != null)
                 {
                     string[] polja = line.Split(';');
-                    //int i = 0;
-                   // while (polja[i * 9] != null)
-                   // {
-                        Dispecer dispecer = new Dispecer();
+                    Dispecer dispecer = new Dispecer();
 
-                        dispecer.KorisnickoIme = polja[0];
-                        dispecer.Lozinka = polja[1];
-                        dispecer.Ime = polja[2];
-                        dispecer.Prezime = polja[3];
-                        if (polja[4].Equals("MUSKI"))
-                            dispecer.Pol = Pol.MUSKI;
-                        else
-                            dispecer.Pol = Pol.ZENSKI;
-                        dispecer.Jmbg = polja[5];
-                        dispecer.KontaktTelefon = polja[6];
-                        dispecer.Email = polja[7];
-                        dispecer.Uloga = Uloga.DISPECER;
+                    dispecer.KorisnickoIme = polja[0];
+                    dispecer.Lozinka = polja[1];
+                    dispecer.Ime = polja[2];
+                    dispecer.Prezime = polja[3];
+                    if (polja[4].Equals("MUSKI"))
+                    {
+                        dispecer.Pol = Pol.MUSKI;
+                    }
+                    else
+                    {
+                        dispecer.Pol = Pol.ZENSKI;
+                    }
+                    dispecer.Jmbg = polja[5];
+                    dispecer.KontaktTelefon = polja[6];
+                    dispecer.Email = polja[7];
+                    dispecer.Uloga = Uloga.DISPECER;
 
                         Korisnici.ListaKorisnika.Add(dispecer);
                         Korisnici.ListaDispecera.Add(dispecer);
-                       // i++;
-                   // }
                 }
 
                 file.Close();

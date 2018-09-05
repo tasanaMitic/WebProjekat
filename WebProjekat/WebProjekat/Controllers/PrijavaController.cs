@@ -70,7 +70,7 @@ namespace WebProjekat.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogIn(string korisnickoIme, string lozinka)
+        public ActionResult Logovanje(string korisnickoIme, string lozinka)
         {
             foreach (Dispecer d in Korisnici.ListaDispecera)
             {
